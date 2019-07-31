@@ -20,6 +20,17 @@ body::after {
   display: block;
   height: 50px;
 }
+#intro {
+	color: antiquewhite;
+	text-align: center;
+	padding: 70px 0;
+}
+#start {
+	height: 20px;
+	width: 100px;
+	position: relative;
+	left: 47%;
+}
 footer {
 	text-align: center;
 	color: antiquewhite;
