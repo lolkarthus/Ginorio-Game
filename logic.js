@@ -7,6 +7,8 @@ var vit = 0
 
 
 function select(race) {
+	snd.play()
+	snd.currentTime=0
 	if (race == 'Human') {
 		console.log('U R a human')
 		int = 1
@@ -41,13 +43,21 @@ function select(race) {
 
 document.getElementById('start').onclick = function replace() {
 	snd.play()
-	snd.currentTime=0;
+	snd.currentTime=0
 	$('#start').fadeOut(1000)
 	$('#intro').fadeOut(1000)
-	$('#raceinfo').delay(1000).fadeIn(500)
-	$('.table').delay(1000).fadeIn(500)
+	$('#raceinfo').delay(1000).fadeIn()
+	$('.table').delay(1000).fadeIn()
+	$('#confirm').delay(1000).fadeIn()
 }
 
+document.getElementById('confirm').onclick = function replaceb() {
+	snd.play()
+	snd.currentTime=0
+	$('#racetable').fadeOut(1000)
+	$('#confirm').fadeOut(1000)
+	$('#raceinfo').fadeOut(1000)
+}
 
 
 
