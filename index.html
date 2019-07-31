@@ -22,24 +22,58 @@
 </p>
 	<input type="button" name="Start" class="button" id="start" value="Begin!">
 		
-	<p id="raceinfo">Choose your race.</p>
+	<p id="raceinfo">Choose your race:</p>
 	
 		
 <table width="200" border="1" class="table" id="racetable">
   <tbody>
     <tr>
-      <td onClick="select('Human')"><img src="Human_Ginorio.jpg" alt="Human" class="ginorioimg"></td>
-      <td onClick="select('Elf')"><img src="Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
-      <td onClick="select('Dwarf')"><img src="Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
+      <td onClick="selectrace('Human')"><img src="Human_Ginorio.jpg" alt="Human" class="ginorioimg"></td>
+      <td onClick="selectrace('Elf')"><img src="Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
+      <td onClick="selectrace('Dwarf')"><img src="Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
     </tr>
     <tr id="racerow">
-      <td id="humanrace" onClick="select('Human')">Human</td>
-      <td id="elfrace" onClick="select('Elf')">Elf</td>
-      <td id="dwarfrace" onClick="select('Dwarf')">Dwarf</td>
+      <td id="humanrace" onClick="selectrace('Human')">Human</td>
+      <td id="elfrace" onClick="selectrace('Elf')">Elf</td>
+      <td id="dwarfrace" onClick="selectrace('Dwarf')">Dwarf</td>
     </tr>
   </tbody>
 	</table>
-	<input type="button" name="Confirm" class="button" id="confirm" value="Confirm">
+	<input type="button" name="Confirm" class="button" id="confirmrace" value="Confirm">
+		
+		
+	<p id="bgquestion">Where were you born?</p>
+	
+		
+<table width="200" border="1" class="table" id="bgtable">
+  <tbody>
+    <tr>
+      <td onClick="selectbg('village')">Small village</td>
+      <td onClick="selectbg('manor')">Aristocratic manor</td>
+      <td onClick="selectbg('street')">Streets</td>
+      <td onClick="selectbg('merchant')">Merchant</td>
+      <td onClick="selectbg('cabin')">Cabin in the woods</td>
+    </tr>
+  </tbody>
+</table>
+
+	<input type="button" name="Confirm" class="button" id="confirmbg" value="Confirm">
+		
+	<p class="bginfo" id="villageinfo">
+		Ever since you can remember you have been helping your father on his farm. With all this experience you began to get quite quick on your feet and began to build strength but because farm work does not pay much your family could barely pay for food, let alone your education so you decide to...
+	</p>
+	<p class="bginfo" id="manorinfo">
+		You were born into a noble family who weren’t very well known. Your family would still pay for your education and require that you go to the occasional feast no matter how boring they seemed they did teach you how to talk to people. When it was time for you to go to school you decided to learn how to...
+	</p>
+	<p class="bginfo" id="streetinfo">
+		missing
+	</p>
+	<p class="bginfo" id="merchantinfo">
+		Your father was a successful merchant. When he wasn’t extremely busy he would teach you his trade and how to talk to people in a way that would benefit  you. Because of your father’s wealth you were able to get a decent education were you learned...
+	</p>
+	<p class="bginfo" id="cabininfo">
+		missing	
+	</p>
 		
 	<footer>This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 	

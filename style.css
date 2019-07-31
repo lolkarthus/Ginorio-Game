@@ -49,6 +49,7 @@ body::after {
 	height: 550px;
 	align-content: center;
 	position: relative;
+	vertical-align: middle;
 }
 .button {
 	height: 30px;
@@ -62,9 +63,29 @@ body::after {
 	border-radius: 12px;
 	margin-top: 500px;
 }
-#confirm {
+#confirmrace {
 	display: none;
 	margin-top: 50px;
+}
+#confirmbg {
+	display: none;
+	margin-top: 50px;
+}
+#bgquestion {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	color: antiquewhite;
+	display: none;
+}
+.bginfo {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 25px;
+	width: 500px;
+	color: antiquewhite;
+	display: none;
+	
 }
 #raceinfo {
 	font-family: enchanted_landregular;
@@ -84,7 +105,7 @@ body::after {
 	text-align: center;
 }
 #elfrace {
-	width: 35%;
+	width: 33.3%;
 }
 footer {
 	text-align: center;
