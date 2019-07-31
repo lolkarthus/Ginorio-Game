@@ -1,12 +1,27 @@
+@font-face {
+    font-family: 'enchanted_landregular';
+    src: url('enchanted_land-webfont.woff2') format('woff2'),
+         url('enchanted_land-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 html{
 	height: 100%;
+	font-family: enchanted_landregular;
 }
 header {
 	color: antiquewhite;
 	text-align: center;
-	font-size: 40px;
+	font-size: 45px;
 	height: 50px;
 	background: #301919;
+}
+#logo {
+	width: 100px;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
 }
 body {
 	background-color: black;
@@ -21,15 +36,27 @@ body::after {
   height: 50px;
 }
 #intro {
+	width: 500px;
 	color: antiquewhite;
 	text-align: center;
+	position: absolute;
+	left: 50%;
+	margin-left: -250px;
 	padding: 70px 0;
+	font-size: 30px;
 }
 #start {
-	height: 20px;
+	height: 30px;
 	width: 100px;
 	position: relative;
 	left: 47%;
+	font-family: enchanted_landregular;
+	font-size: 25px;
+	background-color: #301919;
+	color: antiquewhite;
+	border-radius: 12px;
+	margin-top: 500px;
+	
 }
 footer {
 	text-align: center;
@@ -39,4 +66,5 @@ footer {
    	bottom: 0;
 	width: 100%;
 	height: 50px;
+	font-size: 20px;
 }
