@@ -57,20 +57,20 @@ function selectbg(background) {
 	snd.play()
 	snd.currentTime=0
 	bg = background
-	if (bg == 'village') {
-		bg = 'village'
+	if (bg == 'farmer') {
+		bg = 'farmer'
 	}
-	if (bg == 'manor') {
-		bg = 'manor'
+	if (bg == 'noble') {
+		bg = 'noble'
 	}
-	if (bg == 'street') {
-		bg = 'street'
+	if (bg == 'orphan') {
+		bg = 'orphan'
 	}
 	if (bg == 'merchant') {
 		bg = 'merchant'
 	}
-	if (bg == 'cabin') {
-		bg = 'cabin'
+	if (bg == 'hunter') {
+		bg = 'hunter'
 	}
 }
 
@@ -101,25 +101,26 @@ document.getElementById('confirmrace').onclick = function replaceb() {
 document.getElementById('confirmbg').onclick = function replacec() {
 	snd.play()
 	snd.currentTime=0
-	if (bg == 'village') {
-		str++
+	if (bg == 'farmer') {
+		str = str + 2
 		dex++
 		int--
+		
 		money = 30
-		$('#villageinfo').delay(1000).fadeIn()
+		$('#farmerinfo').delay(1000).fadeIn()
 	}
-	if (bg == 'manor') {
-		int++
+	if (bg == 'noble') {
+		int = int + 2
 		cha++
 		str--
 		money = 100
-		$('#manorinfo').delay(1000).fadeIn()
+		$('#nobleinfo').delay(1000).fadeIn()
 	}
-	if (bg == 'street') {
-		dex = dex + 2
+	if (bg == 'orphan') {
+		dex = dex + 3
 		cha--
 		money = 10
-		$('#streetinfo').delay(1000).fadeIn()
+		$('#orphaninfo').delay(1000).fadeIn()
 	}
 	if (bg == 'merchant') {
 		cha++
@@ -127,11 +128,11 @@ document.getElementById('confirmbg').onclick = function replacec() {
 		money = 75
 		$('#merchantinfo').delay(1000).fadeIn()
 	}
-	if (bg == 'cabin') {
+	if (bg == 'hunter') {
 		dex++
 		str++
 		money = 45
-		$('#cabininfo').delay(1000).fadeIn()
+		$('#hunterinfo').delay(1000).fadeIn()
 	}
 	
 	printstats()
