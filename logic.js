@@ -223,5 +223,66 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#identification').fadeOut(1000)
 	$('#iscorrect').fadeOut(1000)
 	$('#confirmchar').fadeOut(1000)
+	document.getElementById('in').style.display = 'block'
+	$('#out').delay(1000).fadeIn()
 }
+
+YUI().use("node", function(Y) {
+var COMMANDS = [
+	{
+		name: "do_stuff",
+		handler: doStuff
+	},
+
+	{
+		name: "greet",
+		handler: function(args) {
+			outputToConsole("Hello " + args[0] + ", welcome to Console.");
+		}
+	}
+];
+
+function processCommand() {
+	var inField = Y.one("#in");
+	var input = inField.get("value");
+	var parts = input.replace(/\s+/g, " ").split(" ");
+	var command = parts[0];
+	var args = parts.length > 1 ? parts.slice(1, parts.length) : [];
+
+	inField.set("value", "");
+
+	for (var i = 0; i < COMMANDS.length; i++) {
+		if (command === COMMANDS[i].name) {
+			COMMANDS[i].handler(args);
+			return;
+		}
+	}
+
+	outputToConsole("Unsupported Command: " + command);
+}
+
+function doStuff(args) {
+	outputToConsole("I'll just echo the args: " + args);
+}
+
+function outputToConsole(text) {
+	var p = Y.Node.create("<p>" + text + "</p>");
+	Y.one("#out").append(p);
+	p.scrollIntoView();
+}
+
+Y.on("domready", function(e) {
+	Y.one("body").setStyle("paddingBottom", Y.one("#in").get("offsetHeight"));
+	Y.one("#in").on("keydown", function(e) {
+		if (e.charCode === 13) {
+			processCommand();
+		}
+	});
+});
+});
+
+
+
+
+
 
