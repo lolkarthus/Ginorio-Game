@@ -28,14 +28,14 @@
 <table width="200" border="1" class="table" id="racetable">
   <tbody>
     <tr>
-      <td onClick="selectrace('Human')"><img src="Human_Ginorio.jpg" alt="Human" class="ginorioimg"></td>
-      <td onClick="selectrace('Elf')"><img src="Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
-      <td onClick="selectrace('Dwarf')"><img src="Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
+      <td onClick="selectrace('human')"><img src="Human_Ginorio.jpg" alt="Human" class="ginorioimg"></td>
+      <td onClick="selectrace('elf')"><img src="Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
+      <td onClick="selectrace('dwarf')"><img src="Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
     </tr>
     <tr id="racerow">
-      <td id="humanrace" onClick="selectrace('Human')">Human</td>
-      <td id="elfrace" onClick="selectrace('Elf')">Elf</td>
-      <td id="dwarfrace" onClick="selectrace('Dwarf')">Dwarf</td>
+      <td id="humanrace" onClick="selectrace('human')">Human</td>
+      <td id="elfrace" onClick="selectrace('elf')">Elf</td>
+      <td id="dwarfrace" onClick="selectrace('dwarf')">Dwarf</td>
     </tr>
   </tbody>
 	</table>
@@ -87,21 +87,23 @@
 	<table width="500" border="1" class="table" id="classtable">
   <tbody>
     <tr>
-      <td onClick="selectclass('Warrior')">&nbsp;</td>
-      <td onClick="selectclass('Ranger')">&nbsp;</td>
-      <td onClick="selectclass('Mage')">&nbsp;</td>
+      <td onClick="selectclass('warrior')">&nbsp;</td>
+      <td onClick="selectclass('ranger')">&nbsp;</td>
+      <td onClick="selectclass('mage')">&nbsp;</td>
     </tr>
     <tr>
-      <td onClick="selectclass('Warrior')">Warrior</td>
-      <td onClick="selectclass('Ranger')">Ranger</td>
-      <td onClick="selectclass('Mage')">Mage</td>
+      <td onClick="selectclass('warrior')">Warrior</td>
+      <td onClick="selectclass('ranger')">Ranger</td>
+      <td onClick="selectclass('mage')">Mage</td>
     </tr>
   </tbody>
 </table>
 		<input type="button" name="Confirm" class="button" id="confirmclass" value="Confirm">
 
-		
-		
+<p id="iscorrect">Are you sure?</p>
+<p id="identification">You are a</p>		
+<input type="button" name="Restart" class="button" id="restart" value="Restart">		
+<input type="button" name="Confirm" class="button" id="confirmchar" value="Confirm">
 	
 	<footer>This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 	

@@ -76,7 +76,23 @@ body::after {
 	display: none;
 	margin-top: 50px;
 }
+#restart {
+	display: none;
+	margin-top: 50px;
+	left: 43%;
+}
+#confirmchar {
+	display: none;
+	margin-top: 50px;
+}
 #bgquestion {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	color: antiquewhite;
+	display: none;
+}
+#iscorrect, #identification {
 	font-family: enchanted_landregular;
 	text-align: center;
 	font-size: 30px;

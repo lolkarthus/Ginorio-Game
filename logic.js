@@ -12,12 +12,12 @@ var race
 var bg
 var klass
 
-//introbgmusic = new Audio('the_road_home.mp3'); 
-//introbgmusic.addEventListener('ended', function() {
-//    this.currentTime = 0;
-//    this.play();
-//}, false);
-//introbgmusic.play();
+introbgmusic = new Audio('the_road_home.mp3');
+introbgmusic.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+introbgmusic.play();
 
 
 function printstats() {
@@ -66,21 +66,21 @@ document.getElementById('start').onclick = function replacea() {
 
 document.getElementById('confirmrace').onclick = function replaceb() {
 	button()
-	if (race == 'Human') {
+	if (race == 'human') {
 		int = 6
 		cha = 6
 		str = 5
 		dex = 5
  		vit = 20
 	}
-	if (race == 'Elf') {
+	if (race == 'elf') {
 		dex = 6
 		int = 6
 		str = 5
 		cha = 5
  		vit = 20
 		}
-	if (race == 'Dwarf') {
+	if (race == 'dwarf') {
 		str = 6
 		vit = 22
 		int = 5
@@ -152,16 +152,16 @@ document.getElementById('intronext').onclick = function replaced() {
 
 document.getElementById('confirmclass').onclick = function replacee() {
 	button()
-	if (klass == 'Warrior') {
+	if (klass == 'warrior') {
 		vit = vit + 2
 		str++
 		//add items
 	}
-	if (klass == "Ranger") {
+	if (klass == "ranger") {
 		dex = dex + 2
 		//add items
 	}
-	if (klass == "Mage") {
+	if (klass == "mage") {
 		int = int + 2
 		//add items
 	}
@@ -170,4 +170,36 @@ document.getElementById('confirmclass').onclick = function replacee() {
 	
 	$('#classtable').fadeOut(1000)
 	$('#confirmclass').fadeOut(1000)
+	$('#iscorrect').delay(1000).fadeIn()
+	$('#identification').delay(1000).fadeIn()
+	document.getElementById('identification').innerHTML = 'You are a level ' + lvl + ' ' + race + ' ' + klass + ' who is a ' + bg + ' with ' + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' health.'
+	$('#restart').delay(1000).fadeIn()
+	$('#confirmchar').delay(1000).fadeIn()
 }
+
+document.getElementById('restart').onclick = function replacef() {
+	race = undefined
+	klass = undefined
+	bg = undefined
+	str = 5
+	int = 5
+	dex = 5
+	cha = 5
+	vit = 20
+	money = 0
+	$('#restart').fadeOut(1000)
+	$('#identification').fadeOut(1000)
+	$('#iscorrect').fadeOut(1000)
+	$('#confirmchar').fadeOut(1000)
+	$('#racetable').delay(1000).fadeIn()
+	$('#confirmrace').delay(1000).fadeIn()
+	$('#raceinfo').delay(1000).fadeIn()
+}
+
+document.getElementById('confirmchar').onclick = function replaceg() {
+	$('#restart').fadeOut(1000)
+	$('#identification').fadeOut(1000)
+	$('#iscorrect').fadeOut(1000)
+	$('#confirmchar').fadeOut(1000)
+}
+
