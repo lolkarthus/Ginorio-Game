@@ -3,7 +3,7 @@
 <head>
 
 	<title>G&amp;D</title>
-	<img src="highlogo.png" id="logo" alt="G&D">
+<img src="highlogo.png" id="logo" alt="G&D">
 	
 	<link href="style.css" rel="stylesheet" type="text/css">
 	
@@ -42,16 +42,23 @@
 	<input type="button" name="Confirm" class="button" id="confirmrace" value="Confirm">
 		
 		
-	<p id="bgquestion">Who were your parents?</p>
+	<p id="bgquestion">Who are your parents?</p>
 	
 		
 <table width="200" border="1" class="table" id="bgtable">
   <tbody>
     <tr>
+	  <td onClick="selectbg('farmer')"><img src="Farmer_Ginorio.jpg" alt="Farmers"></td>
+      <td onClick="selectbg('noble')"><img src="Noble_Ginorio.jpg" alt="Nobles"></td>
+      <td onClick="selectbg('orphan')"><img src="Orphan_Ginorio.jpg" alt="Orphan"></td>
+      <td onClick="selectbg('merchant')"><img src="Merchant_Ginorio.png" alt="Merchants"></td>
+      <td onClick="selectbg('hunter')"><img src="Hunter_Ginorio.png" alt="Hunters"></td> 
+	  </tr>
+  	<tr>
       <td onClick="selectbg('farmer')">Farmers</td>
       <td onClick="selectbg('noble')">Nobles</td>
       <td onClick="selectbg('orphan')">Orphan</td>
-      <td onClick="selectbg('merchant')">Merchant</td>
+      <td onClick="selectbg('merchant')">Merchants</td>
       <td onClick="selectbg('hunter')">Hunters</td>
     </tr>
   </tbody>
@@ -60,21 +67,42 @@
 	<input type="button" name="Confirm" class="button" id="confirmbg" value="Confirm">
 		
 	<p class="bginfo" id="farmerinfo">
-		Ever since you can remember you have been helping your father on his farm. With all this experience you began to get quite quick on your feet and began to build strength but because farm work does not pay much your family could barely pay for food, let alone your education so you decide to...
+		Ever since you can remember you have been helping your father on his farm. With all this experience you began to get quite quick on your feet and began to build strength but because farm work does not pay much your family could barely pay for food, let alone your education.
 	</p>
 	<p class="bginfo" id="nobleinfo">
-		You were born into a noble family who weren’t very well known. Your family would still pay for your education and require that you go to the occasional feast no matter how boring they seemed they did teach you how to talk to people. When it was time for you to go to school you decided to learn how to...
+		You were born into a noble family who weren’t very well known. Your family would still pay for your education and require that you go to the occasional feast no matter how boring they seemed they did teach you how to talk to people. 
 	</p>
 	<p class="bginfo" id="orphaninfo">
-		missing
+		Your parents were killed when you were a young child and since then you have had to learn to fend for yourself. Though you didn’t spend much time with people and could never study you learned to be quick on you feet in order to steal what you needed to live.
 	</p>
 	<p class="bginfo" id="merchantinfo">
-		Your father was a successful merchant. When he wasn’t extremely busy he would teach you his trade and how to talk to people in a way that would benefit  you. Because of your father’s wealth you were able to get a decent education were you learned...
+		Your father was a successful merchant. When he wasn’t extremely busy he would teach you his trade and how to talk to people in a way that would benefit  you. Because of your father’s wealth you were able to get a decent education.
 	</p>
 	<p class="bginfo" id="hunterinfo">
-		missing	
+		Your father and mother came from a long line of hunters and as such taught you how to hunt at a very young age. This hunting experience made you quick on your feet and quite good with a bow.	
 	</p>
 		
+	<input type="button" name="Confirm" class="button" id="intronext" value="Next">	
+		
+	<table width="500" border="1" class="table" id="classtable">
+  <tbody>
+    <tr>
+      <td onClick="selectclass('Warrior')">&nbsp;</td>
+      <td onClick="selectclass('Ranger')">&nbsp;</td>
+      <td onClick="selectclass('Mage')">&nbsp;</td>
+    </tr>
+    <tr>
+      <td onClick="selectclass('Warrior')">Warrior</td>
+      <td onClick="selectclass('Ranger')">Ranger</td>
+      <td onClick="selectclass('Mage')">Mage</td>
+    </tr>
+  </tbody>
+</table>
+		<input type="button" name="Confirm" class="button" id="confirmclass" value="Confirm">
+
+		
+		
+	
 	<footer>This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 	
 	<script type="text/javascript" src="logic.js"></script>

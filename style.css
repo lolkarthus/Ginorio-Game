@@ -62,12 +62,17 @@ body::after {
 	color: antiquewhite;
 	border-radius: 12px;
 	margin-top: 500px;
+	
 }
 #confirmrace {
 	display: none;
 	margin-top: 50px;
 }
 #confirmbg {
+	display: none;
+	margin-top: 50px;
+}
+#confirmclass {
 	display: none;
 	margin-top: 50px;
 }
@@ -78,14 +83,18 @@ body::after {
 	color: antiquewhite;
 	display: none;
 }
+#intronext {
+	display: none;
+}
 .bginfo {
 	font-family: enchanted_landregular;
 	text-align: center;
-	font-size: 25px;
+	font-size: 30px;
 	width: 500px;
 	color: antiquewhite;
 	display: none;
-	
+	margin-left: auto;
+	margin-right: auto;
 }
 #raceinfo {
 	font-family: enchanted_landregular;

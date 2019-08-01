@@ -10,6 +10,15 @@ var money = 0
 var moral = 0
 var race
 var bg
+var klass
+
+//introbgmusic = new Audio('the_road_home.mp3'); 
+//introbgmusic.addEventListener('ended', function() {
+//    this.currentTime = 0;
+//    this.play();
+//}, false);
+//introbgmusic.play();
+
 
 function printstats() {
 	console.log('int is ' + int)
@@ -20,66 +29,34 @@ function printstats() {
 	console.log('money is ' + money)
 	console.log('race is ' + race)
 	console.log('background is ' + bg)
+	console.log('class is ' + klass)
 	console.log('moral is ' + moral)
 }
-function selectrace(rce) {
+
+function button() {
 	snd.play()
 	snd.currentTime=0
+}
+
+function selectrace(rce) {
+	button()
 	race = rce
-	if (race == 'Human') {
-		int = 6
-		cha = 6
-		str = 5
-		dex = 5
- 		vit = 20
-		race = 'Human'
-	}
-	if (race == 'Elf') {
-		dex = 6
-		int = 6
-		str = 5
-		cha = 5
- 		vit = 20
-		race = 'Elf'
-		}
-	if (race == 'Dwarf') {
-		str = 6
-		vit = 22
-		int = 5
-		dex = 5
- 		cha = 5
-		race = 'Dwarf'
-	}
-	printstats()
 }
 
 function selectbg(background) {
-	snd.play()
-	snd.currentTime=0
+	button()
 	bg = background
-	if (bg == 'farmer') {
-		bg = 'farmer'
-	}
-	if (bg == 'noble') {
-		bg = 'noble'
-	}
-	if (bg == 'orphan') {
-		bg = 'orphan'
-	}
-	if (bg == 'merchant') {
-		bg = 'merchant'
-	}
-	if (bg == 'hunter') {
-		bg = 'hunter'
-	}
 }
 
+function selectclass(playerclass) {
+	button()
+	klass = playerclass
+}
 
 
 
 document.getElementById('start').onclick = function replacea() {
-	snd.play()
-	snd.currentTime=0
+	button()
 	$('#start').fadeOut(1000)
 	$('#intro').fadeOut(1000)
 	$('#raceinfo').delay(1000).fadeIn()
@@ -88,24 +65,46 @@ document.getElementById('start').onclick = function replacea() {
 }
 
 document.getElementById('confirmrace').onclick = function replaceb() {
-	snd.play()
-	snd.currentTime=0
+	button()
+	if (race == 'Human') {
+		int = 6
+		cha = 6
+		str = 5
+		dex = 5
+ 		vit = 20
+	}
+	if (race == 'Elf') {
+		dex = 6
+		int = 6
+		str = 5
+		cha = 5
+ 		vit = 20
+		}
+	if (race == 'Dwarf') {
+		str = 6
+		vit = 22
+		int = 5
+		dex = 5
+ 		cha = 5
+	}
+	
+	printstats()
+	
 	$('#racetable').fadeOut(1000)
 	$('#confirmrace').fadeOut(1000)
 	$('#raceinfo').fadeOut(1000)
 	$('#bgquestion').delay(1000).fadeIn()
 	$('#confirmbg').delay(1000).fadeIn()
 	$('#bgtable').delay(1000).fadeIn()
+	
 }
 
 document.getElementById('confirmbg').onclick = function replacec() {
-	snd.play()
-	snd.currentTime=0
+	button()
 	if (bg == 'farmer') {
 		str = str + 2
 		dex++
 		int--
-		
 		money = 30
 		$('#farmerinfo').delay(1000).fadeIn()
 	}
@@ -140,6 +139,35 @@ document.getElementById('confirmbg').onclick = function replacec() {
 	$('#bgquestion').fadeOut(1000)
 	$('#bgtable').fadeOut(1000)
 	$('#confirmbg').fadeOut(1000)
+	$('#intronext').delay(1000).fadeIn()
 }
 
+document.getElementById('intronext').onclick = function replaced() {
+	button()
+	$('.bginfo').fadeOut(1000)
+	$('#intronext').fadeOut(1000)
+	$('#classtable').delay(1000).fadeIn()
+	$('#confirmclass').delay(1000).fadeIn()
+}
 
+document.getElementById('confirmclass').onclick = function replacee() {
+	button()
+	if (klass == 'Warrior') {
+		vit = vit + 2
+		str++
+		//add items
+	}
+	if (klass == "Ranger") {
+		dex = dex + 2
+		//add items
+	}
+	if (klass == "Mage") {
+		int = int + 2
+		//add items
+	}
+	
+	printstats()
+	
+	$('#classtable').fadeOut(1000)
+	$('#confirmclass').fadeOut(1000)
+}
