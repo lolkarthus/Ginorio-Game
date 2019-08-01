@@ -139,18 +139,38 @@ document.getElementById('confirmbg').onclick = function replacec() {
 	$('#bgquestion').fadeOut(1000)
 	$('#bgtable').fadeOut(1000)
 	$('#confirmbg').fadeOut(1000)
-	$('#intronext').delay(1000).fadeIn()
+	$('#intronext1').delay(1000).fadeIn()
 }
 
-document.getElementById('intronext').onclick = function replaced() {
+document.getElementById('intronext1').onclick = function replaced() {
 	button()
+	if (bg == 'farmer') {
+		$('#farmerintrostory').delay(1000).fadeIn()
+	}
+	if (bg == 'noble') {
+		$('#nobleintrostory').delay(1000).fadeIn()
+	}
+	if (bg == 'orphan') {
+		$('#orphanintrostory').delay(1000).fadeIn()
+	}
+	if (bg == 'merchant') {
+		$('#merchantintrostory').delay(1000).fadeIn()
+	}
+	if (bg == 'hunter') {
+		$('#hunterintrostory').delay(1000).fadeIn()
+	}
+	$('#intronext2').delay(1000).fadeIn()
 	$('.bginfo').fadeOut(1000)
-	$('#intronext').fadeOut(1000)
+	$('#intronext1').fadeOut(1000)
+}
+document.getElementById('intronext2').onclick = function replacee() {
+	button()
+	$('#intronext2').fadeOut(1000)
+	$('.storyinfo').fadeOut(1000)
 	$('#classtable').delay(1000).fadeIn()
 	$('#confirmclass').delay(1000).fadeIn()
 }
-
-document.getElementById('confirmclass').onclick = function replacee() {
+document.getElementById('confirmclass').onclick = function replacef() {
 	button()
 	if (klass == 'warrior') {
 		vit = vit + 2
@@ -177,7 +197,8 @@ document.getElementById('confirmclass').onclick = function replacee() {
 	$('#confirmchar').delay(1000).fadeIn()
 }
 
-document.getElementById('restart').onclick = function replacef() {
+document.getElementById('restart').onclick = function replaceg() {
+	button()
 	race = undefined
 	klass = undefined
 	bg = undefined
@@ -196,7 +217,8 @@ document.getElementById('restart').onclick = function replacef() {
 	$('#raceinfo').delay(1000).fadeIn()
 }
 
-document.getElementById('confirmchar').onclick = function replaceg() {
+document.getElementById('confirmchar').onclick = function replaceh() {
+	button()
 	$('#restart').fadeOut(1000)
 	$('#identification').fadeOut(1000)
 	$('#iscorrect').fadeOut(1000)

@@ -31,19 +31,9 @@ body {
 	position: relative;
 }
 body::after {
-  content: '';
-  display: block;
-  height: 50px;
-}
-#intro {
-	width: 500px;
-	color: antiquewhite;
-	text-align: center;
-	position: absolute;
-	left: 50%;
-	margin-left: -250px;
-	padding: 70px 0;
-	font-size: 30px;
+	content: '';
+	display: block;
+	height: 50px;
 }
 .ginorioimg {
 	height: 550px;
@@ -61,63 +51,7 @@ body::after {
 	background-color: #301919;
 	color: antiquewhite;
 	border-radius: 12px;
-	margin-top: 500px;
-	
-}
-#confirmrace {
-	display: none;
-	margin-top: 50px;
-}
-#confirmbg {
-	display: none;
-	margin-top: 50px;
-}
-#confirmclass {
-	display: none;
-	margin-top: 50px;
-}
-#restart {
-	display: none;
-	margin-top: 50px;
-	left: 43%;
-}
-#confirmchar {
-	display: none;
-	margin-top: 50px;
-}
-#bgquestion {
-	font-family: enchanted_landregular;
-	text-align: center;
-	font-size: 30px;
-	color: antiquewhite;
-	display: none;
-}
-#iscorrect, #identification {
-	font-family: enchanted_landregular;
-	text-align: center;
-	font-size: 30px;
-	color: antiquewhite;
-	display: none;
-}
-#intronext {
-	display: none;
-}
-.bginfo {
-	font-family: enchanted_landregular;
-	text-align: center;
-	font-size: 30px;
-	width: 500px;
-	color: antiquewhite;
-	display: none;
-	margin-left: auto;
-	margin-right: auto;
-}
-#raceinfo {
-	font-family: enchanted_landregular;
-	text-align: center;
-	font-size: 30px;
-	color: antiquewhite;
-	display: none;
+	margin-top: 500px;	
 }
 .table {
 	background-color: #301919;
@@ -129,9 +63,73 @@ body::after {
 	width: auto;
 	text-align: center;
 }
+.bginfo {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	width: 500px;
+	color: antiquewhite;
+	display: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+.storyinfo {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	width: 500px;
+	color: antiquewhite;
+	display: none;
+	margin-left: 36%;
+	margin-right: auto;
+	position: absolute;
+}
+#intro {
+	width: 500px;
+	color: antiquewhite;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	margin-left: -250px;
+	padding: 70px 0;
+	font-size: 30px;
+}
+#bgquestion, #iscorrect, #identification {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	color: antiquewhite;
+	display: none;
+}
+#raceinfo {
+	font-family: enchanted_landregular;
+	text-align: center;
+	font-size: 30px;
+	color: antiquewhite;
+	display: none;
+}
+#confirmrace, #confirmbg, #confirmclass, #restart, #confirmchar {
+	display: none;
+	margin-top: 50px;
+}
+#restart {
+	left: 43%;
+}
+#intronext1 {
+	display: none;
+}
+#intronext2 {
+	display: none;
+
+}
+#classtable {
+	margin-top: 50px;
+}
 #elfrace {
 	width: 33.3%;
 }
+
+
 footer {
 	text-align: center;
 	color: antiquewhite;
