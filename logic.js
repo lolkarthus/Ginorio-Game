@@ -1,4 +1,6 @@
 var snd = new Audio("button.mp3")
+var lvl = 1
+var exp = 0
 var int = 5
 var cha = 5
 var str = 5
