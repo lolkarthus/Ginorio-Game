@@ -6,11 +6,8 @@
 <img src="highlogo.png" id="logo" alt="G&D">
 	
 	<link href="style.css" rel="stylesheet" type="text/css">
-	
 	<link rel="icon" type="image/png" href="icon_GD.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
-<script type="text/javascript" src="http://yui.yahooapis.com/combo?3.5.0/build/yui/yui-min.js"></script>
 	
 	</head>
 	<body>
@@ -126,13 +123,18 @@
 <p id="identification">You are a</p>		
 <input type="button" name="Restart" class="button" id="restart" value="Restart">		
 <input type="button" name="Confirm" class="button" id="confirmchar" value="Confirm">
-
-<div id="out"></div>
-	<input id="in" tabindex="0"/>	
-
+	
 		
-
-	<footer>This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
+		
+<form id="frm">		
+	<textarea id="txtArea" readonly="readonly"></textarea>
+	<input type="text" id="message">
+	<button type="submit" id="sendbutton">Send</button>
+</form>
+		
+		
+		
+	<footer id="footer">This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 	
 	<script type="text/javascript" src="logic.js"></script>
 </body>

@@ -12,12 +12,12 @@ var race
 var bg
 var klass
 
-introbgmusic = new Audio('the_road_home.mp3');
-introbgmusic.addEventListener('ended', function() {
-    this.currentTime = 0;
-    this.play();
-}, false);
-introbgmusic.play();
+//introbgmusic = new Audio('the_road_home.mp3');
+//introbgmusic.addEventListener('ended', function() {
+ //   this.currentTime = 0;
+ //   this.play();
+//}, false);
+//introbgmusic.play();
 
 
 function printstats() {
@@ -59,6 +59,8 @@ document.getElementById('start').onclick = function replacea() {
 	button()
 	$('#start').fadeOut(1000)
 	$('#intro').fadeOut(1000)
+	$('#footer').fadeOut(1000)
+	$('#logo').fadeOut(1000)
 	$('#raceinfo').delay(1000).fadeIn()
 	$('#racetable').delay(1000).fadeIn()
 	$('#confirmrace').delay(1000).fadeIn()
@@ -223,63 +225,125 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#identification').fadeOut(1000)
 	$('#iscorrect').fadeOut(1000)
 	$('#confirmchar').fadeOut(1000)
-	document.getElementById('in').style.display = 'block'
-	$('#out').delay(1000).fadeIn()
+	$('#frm').delay(1000).fadeIn(1000)
+	//document.getElementById('in').style.display = 'block'
+	//$('#out').delay(1000).fadeIn()
 }
 
-YUI().use("node", function(Y) {
-var COMMANDS = [
-	{
-		name: "do_stuff",
-		handler: doStuff
-	},
 
-	{
-		name: "greet",
-		handler: function(args) {
-			outputToConsole("Hello " + args[0] + ", welcome to Console.");
+var playersInput = ""
+var gameMessage = ""
+// Array of actions the game knows and a var for the current action
+var actionsIknow = ['help', 'map', 'fight']
+var action = ""
+// input and output fields
+var input = document.querySelector("#message")
+var output = document.querySelector('#txtArea')
+//On enter key the command recognition is started
+input.addEventListener("keyup", function(event){
+	if (event.keyCode === 13) {
+		event.preventDefault
+		playGame()
+	}
+})
+
+
+
+function playGame() {
+	//Converts player input to lowercase
+	playersInput = playersInput.toLowerCase()
+	
+	//reset variable
+	gameMessage = ""
+	action = ""
+	 
+ 	//loops through all commands checking if input matches it and if so assigning it to current action
+	for(var i = 0; i < actionsIknow.length; i++) {
+		
+		if(playersInput.indexOf(actionsIknow[i]) !== -1) {
+			action = actionsIknow[i]
+			console.log("player's action: " + action)
+			break
 		}
 	}
-];
-
-function processCommand() {
-	var inField = Y.one("#in");
-	var input = inField.get("value");
-	var parts = input.replace(/\s+/g, " ").split(" ");
-	var command = parts[0];
-	var args = parts.length > 1 ? parts.slice(1, parts.length) : [];
-
-	inField.set("value", "");
-
-	for (var i = 0; i < COMMANDS.length; i++) {
-		if (command === COMMANDS[i].name) {
-			COMMANDS[i].handler(args);
-			return;
-		}
+	
+	//choose correct action
+	switch(action) {
+		
+		case "help":
+			console.log('help')
+			var str = actionsIknow.join(", ")
+			gameMessage = 'Current commands are ' + str
+			break
+			
+		case "map":
+			console.log('map')
+			break
+			
+		case "fight":
+			console.log('fight')
+			break
+			
+			
+		default:
+			gameMessage = "Command not valid. Type help."
 	}
+		render()
 
-	outputToConsole("Unsupported Command: " + command);
 }
 
-function doStuff(args) {
-	outputToConsole("I'll just echo the args: " + args);
+function render() {
+	addMessage(gameMessage)
 }
 
-function outputToConsole(text) {
-	var p = Y.Node.create("<p>" + text + "</p>");
-	Y.one("#out").append(p);
-	p.scrollIntoView();
+
+
+
+
+
+function hasVertScrollbar(elem) {
+	//see if there's a scroll bar, return true if there is
+	return elem.clientHeight < elem.scrollHeight
 }
 
-Y.on("domready", function(e) {
-	Y.one("body").setStyle("paddingBottom", Y.one("#in").get("offsetHeight"));
-	Y.one("#in").on("keydown", function(e) {
-		if (e.charCode === 13) {
-			processCommand();
-		}
-	});
-});
-});
+function addMessage(str) {
+	
+	var textarea = document.getElementById("txtArea")
+	
+	//remove all padding
+	var val = textarea.value.replace(/^\n+/,"")
+	//update value with message
+	val += (new Date()).toLocaleTimeString() + ": " + str + "\n"
+	textarea.value = val
+	
+	//create loop where we add line break until a scrollbar appears
+	var padding = []
+	while (!hasVertScrollbar(textarea)) {
+		padding.push("\n")
+		textarea.value = "\n" + textarea.value
+	}
+	//need to remove one
+	padding.pop()
+	//update textarea with the padding and updated text
+	textarea.value = padding.join("") + val
+	//scroll to bottom
+	textarea.scrollTop = textarea.scrollHeight
+}
+function chat(e) {
+	var msg = document.getElementById("message")
+	addMessage(msg.value)
+	playersInput = input.value
+	msg.value = ""
+	e.preventDefault()
+	return false
+}
+
+document.getElementById('frm').addEventListener("submit", chat, false)
+
+
+
+
+
 
 
 
