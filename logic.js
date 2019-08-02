@@ -252,18 +252,18 @@ var CurLocation = 'panterville'
 var mapLocation = ""
 var pastLocation = ""
 
-var items = ['sword', 'shield', 'map']
-var itemlocations = ['rehmont', 'riverrun', 'ogre hills']
+var items = ['sword', 'map']
+var itemlocations = ['rehmont', 'ogre hills']
 
 var inventory = []
 
 var playersInput = ""
 var gameMessage = ""
 // Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'map', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
+var actionsIknow = ['help', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
 var action = ""
 
-var itemsIknow = ['sword', 'shield', 'map']
+var itemsIknow = ['sword', 'map']
 var item = ""
 
 // input and output fields
@@ -311,7 +311,46 @@ function playGame() {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+$(".toggle-fullscreen").on("click",function(){
+
+    var imageBlock = $(this).parent();
+    
+    $(this).hide();
+    
+    imageBlock.addClass('fullscreen-mode');
+    
+});	
 	//choose correct action
+	$(document).on('keyup', function(event){
+    
+    var ESC = 27;
+    
+	if (event.keyCode == ESC){
+    	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show();
+    }
+    
+});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	switch(action) {
 		
 		case "help":
@@ -321,9 +360,6 @@ function playGame() {
 			gameMessage = 'Current commands are ' + str1
 			break
 			
-		case "map":
-			console.log('map')
-			break
 			
 		case "fight":
 			console.log('fight')
@@ -378,7 +414,7 @@ function playGame() {
 
 function takeItem() {
 	var itemIndexNumber = items.indexOf(item)
-	
+	console.log('madeit')
 	if(itemIndexNumber !== -1 && itemlocations[itemIndexNumber] === CurLocation) {
 		gameMessage = "You take " + item + "."
 		inventory.push(item)
@@ -419,6 +455,8 @@ function useItem() {
 		switch(item) {
 			case "map":
 				console.log('You used ' + item)
+				document.getElementById('clickhere').click()
+				
 				break
 			
 			case "sword":
