@@ -57,6 +57,7 @@ function selectclass(playerclass) {
 
 document.getElementById('start').onclick = function replacea() {
 	button()
+	document.getElementById('start').disabled = 'true'
 	$('#start').fadeOut(1000)
 	$('#intro').fadeOut(1000)
 	$('#footer').fadeOut(1000)
@@ -68,6 +69,7 @@ document.getElementById('start').onclick = function replacea() {
 
 document.getElementById('confirmrace').onclick = function replaceb() {
 	button()
+	document.getElementById('confirmrace').disabled = 'true'
 	if (race == 'human') {
 		int = 6
 		cha = 6
@@ -103,6 +105,7 @@ document.getElementById('confirmrace').onclick = function replaceb() {
 
 document.getElementById('confirmbg').onclick = function replacec() {
 	button()
+	document.getElementById('confirmbg').disabled = 'true'
 	if (bg == 'farmer') {
 		str = str + 2
 		dex++
@@ -146,6 +149,7 @@ document.getElementById('confirmbg').onclick = function replacec() {
 
 document.getElementById('intronext1').onclick = function replaced() {
 	button()
+	document.getElementById('intronext1').disabled = 'true'
 	if (bg == 'farmer') {
 		$('#farmerintrostory').delay(1000).fadeIn()
 	}
@@ -167,6 +171,7 @@ document.getElementById('intronext1').onclick = function replaced() {
 }
 document.getElementById('intronext2').onclick = function replacee() {
 	button()
+	document.getElementById('intronext2').disabled = 'true'
 	$('#intronext2').fadeOut(1000)
 	$('.storyinfo').fadeOut(1000)
 	$('#classtable').delay(1000).fadeIn()
@@ -174,6 +179,7 @@ document.getElementById('intronext2').onclick = function replacee() {
 }
 document.getElementById('confirmclass').onclick = function replacef() {
 	button()
+	document.getElementById('confirmclass').disabled = 'true'
 	if (klass == 'warrior') {
 		vit = vit + 2
 		str++
@@ -201,6 +207,7 @@ document.getElementById('confirmclass').onclick = function replacef() {
 
 document.getElementById('restart').onclick = function replaceg() {
 	button()
+	document.getElementById('restart').disabled = 'true'
 	race = undefined
 	klass = undefined
 	bg = undefined
@@ -217,25 +224,46 @@ document.getElementById('restart').onclick = function replaceg() {
 	$('#racetable').delay(1000).fadeIn()
 	$('#confirmrace').delay(1000).fadeIn()
 	$('#raceinfo').delay(1000).fadeIn()
+	document.getElementById('start').disabled = false
+	document.getElementById('confirmrace').disabled = false
+	document.getElementById('confirmbg').disabled = false
+	document.getElementById('intronext1').disabled = false
+	document.getElementById('intronext2').disabled = false
+	document.getElementById('confirmclass').disabled = false
+	document.getElementById('restart').disabled = false
+	document.getElementById('confirmchar').disabled = false
 }
 
 document.getElementById('confirmchar').onclick = function replaceh() {
 	button()
+	document.getElementById('confirmchar').disabled = 'true'
 	$('#restart').fadeOut(1000)
 	$('#identification').fadeOut(1000)
 	$('#iscorrect').fadeOut(1000)
 	$('#confirmchar').fadeOut(1000)
 	$('#frm').delay(1000).fadeIn(1000)
-	//document.getElementById('in').style.display = 'block'
-	//$('#out').delay(1000).fadeIn()
 }
 
+
+
+
+
+var CurLocation = 'Riverrun'
+
+var items = ['a sword', 'a shield', 'a map']
+var itemlocations = ['Rehmont', 'Riverrun', 'Ogre Hills']
+
+var inventory = ['a sword']
 
 var playersInput = ""
 var gameMessage = ""
 // Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'map', 'fight']
+var actionsIknow = ['help', 'map', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
 var action = ""
+
+var itemsIknow = ['a sword', 'a shield', 'a map']
+var item = ""
+
 // input and output fields
 var input = document.querySelector("#message")
 var output = document.querySelector('#txtArea')
@@ -258,7 +286,7 @@ function playGame() {
 	action = ""
 	 
  	//loops through all commands checking if input matches it and if so assigning it to current action
-	for(var i = 0; i < actionsIknow.length; i++) {
+	for(i = 0; i < actionsIknow.length; i++) {
 		
 		if(playersInput.indexOf(actionsIknow[i]) !== -1) {
 			action = actionsIknow[i]
@@ -267,13 +295,21 @@ function playGame() {
 		}
 	}
 	
+	for (i = 0; i < itemsIknow.length; i++) {
+		if(playersInput.indexOf(itemsIknow[i]) !== -1) {
+			item = itemsIknow[i]
+			console.log("player's item: " + item)
+		}
+	}
+	
 	//choose correct action
 	switch(action) {
 		
 		case "help":
 			console.log('help')
-			var str = actionsIknow.join(", ")
-			gameMessage = 'Current commands are ' + str
+			var str1 = actionsIknow.join(", ")
+			str1 = str1.split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+			gameMessage = 'Current commands are ' + str1
 			break
 			
 		case "map":
@@ -284,7 +320,44 @@ function playGame() {
 			console.log('fight')
 			break
 			
+		case "inventory":
+			console.log('inventory')
+			var str2 = ''
+			if (inventory.length == 0) {
+				str2 = 'nothing'
+			}
+			if (inventory.length == 1) {
+				str2 = inventory.join('')
+			}
+			if (inventory.length == 2) {
+				str2 = inventory.join(' and ')
+			}
+			if (inventory.length >=3 ) {
+				str2 = inventory.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+			}
+			gameMessage = 'You have ' + str2 + '.'
+			break
 			
+		case "take":	
+			takeItem()
+			break
+			
+		case "drop":
+			dropItem()
+			break
+			
+		case "use":
+			useItem()
+			break
+			
+		case 'go':
+			go()
+			break
+		
+		case 'where':
+			gameMessage = "You are at " + CurLocation
+			break
+		
 		default:
 			gameMessage = "Command not valid. Type help."
 	}
@@ -292,9 +365,115 @@ function playGame() {
 
 }
 
+
+
+function takeItem() {
+	var itemIndexNumber = items.indexOf(item)
+	
+	if(itemIndexNumber !== -1 && itemlocations[itemIndexNumber] === CurLocation) {
+		gameMessage = "You take " + item + "."
+		inventory.push(item)
+		items.splice(itemIndexNumber, 1)
+		itemlocations.splice(itemIndexNumber, 1)
+		console.log("World items: " + items)
+		console.log("Inventory items: " + inventory)
+	} else {
+		gameMessage = "You can't do that."
+	}
+}
+
+function dropItem() {
+	if (inventory.length !== 0) {
+		var inventoryIndexNumber = inventory.indexOf(item)
+		if (inventoryIndexNumber !== -1) {
+			gameMessage = "You drop " + item + "."
+			items.push(inventory[inventoryIndexNumber])
+			itemlocations.push(CurLocation)
+			inventory.splice(inventoryIndexNumber, 1)
+		} else {
+			gameMessage = "You can't do that."
+		}
+	} else {
+		gameMessage = "You don't have any items."
+	}
+}
+
+function useItem() {
+	var inventoryIndexNumber = inventory.indexOf(item)
+	if (inventoryIndexNumber === -1) {
+		gameMessage = "You don't have it."
+	}
+	if (inventory.length === 0) {
+		gameMessage = "You don't have any items."
+	}
+	if (inventoryIndexNumber !== -1) {
+		switch(item) {
+			case "a map":
+				console.log('You used ' + item)
+				break
+			
+			case "a sword":
+				console.log('You used ' + item)
+				break
+				
+			case "a shield":
+				console.log('You used ' + item)
+				break
+				
+		}
+	}
+}
+
+
+
+
+
 function render() {
 	addMessage(gameMessage)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

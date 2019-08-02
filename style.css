@@ -46,13 +46,14 @@ body::after {
 	height: 30px;
 	width: 100px;
 	position: relative;
-	left: 47%;
+	margin-left: 47%;
 	font-family: enchanted_landregular;
 	font-size: 25px;
 	background-color: #301919;
 	color: antiquewhite;
 	border-radius: 12px;
-	margin-top: 500px;	
+	margin-top: 500px;
+	outline: none;
 }
 .button:hover {
 	background-color: #3c1f1f;
@@ -67,7 +68,7 @@ body::after {
 	width: auto;
 	text-align: center;
 }
-.bginfo {
+.bginfo, .storyinfo {
 	font-family: enchanted_landregular;
 	text-align: center;
 	font-size: 30px;
@@ -76,17 +77,6 @@ body::after {
 	display: none;
 	margin-left: auto;
 	margin-right: auto;
-}
-.storyinfo {
-	font-family: enchanted_landregular;
-	text-align: center;
-	font-size: 30px;
-	width: 500px;
-	color: antiquewhite;
-	display: none;
-	margin-left: 36%;
-	margin-right: auto;
-	position: absolute;
 }
 #intro {
 	width: 500px;
@@ -117,14 +107,20 @@ body::after {
 	margin-top: 50px;
 }
 #restart {
-	left: 43%;
+	position: absolute;
+	left: -3%;
+	bottom: 68.7%;
+}
+#confirmchar {
+	left: 4.9%;
 }
 #intronext1 {
 	display: none;
 }
 #intronext2 {
 	display: none;
-
+	position: absolute;
+	bottom: 350px;
 }
 #classtable {
 	margin-top: 50px;
@@ -147,7 +143,7 @@ footer {
 }
 
 #frm {
-	display: none;
+	/*display: none;*/
 }
 #txtArea {
 	width: 99.7%;
@@ -161,9 +157,11 @@ footer {
 	resize: none;
 	bottom: 15px;
 	position: absolute;
+	outline: none;
+	cursor:auto
 }
 #message {
-	width: 100%;
+	width: 99%;
 	background-color: #301919;
 	border-color: antiquewhite;
 	border: none;
@@ -176,6 +174,8 @@ footer {
 	padding-top: 10px;
 	font-family: enchanted_landregular;
 	font-size: 25px;
+	outline: none;
+	padding-left: 30px;
 }
 #message:hover {
 	background-color: #3c1f1f;
@@ -183,3 +183,6 @@ footer {
 #sendbutton {
 	display: none;
 }
+
+
+
