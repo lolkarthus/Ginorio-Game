@@ -247,13 +247,15 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 
 
 
+var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
+var CurLocation = 'panterville'
+var mapLocation = ""
+var pastLocation = ""
 
-var CurLocation = 'Riverrun'
+var items = ['sword', 'shield', 'map']
+var itemlocations = ['rehmont', 'riverrun', 'ogre hills']
 
-var items = ['a sword', 'a shield', 'a map']
-var itemlocations = ['Rehmont', 'Riverrun', 'Ogre Hills']
-
-var inventory = ['a sword']
+var inventory = []
 
 var playersInput = ""
 var gameMessage = ""
@@ -261,7 +263,7 @@ var gameMessage = ""
 var actionsIknow = ['help', 'map', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
 var action = ""
 
-var itemsIknow = ['a sword', 'a shield', 'a map']
+var itemsIknow = ['sword', 'shield', 'map']
 var item = ""
 
 // input and output fields
@@ -299,6 +301,13 @@ function playGame() {
 		if(playersInput.indexOf(itemsIknow[i]) !== -1) {
 			item = itemsIknow[i]
 			console.log("player's item: " + item)
+		}
+	}
+	
+	for (i = 0; i < locationsIknow.length; i++) {
+		if(playersInput.indexOf(locationsIknow[i]) !== -1) {
+			mapLocation = locationsIknow[i]
+			console.log("Player's want's to go to: " + mapLocation)
 		}
 	}
 	
@@ -355,7 +364,7 @@ function playGame() {
 			break
 		
 		case 'where':
-			gameMessage = "You are at " + CurLocation
+			gameMessage = "You are at " + titleCase(CurLocation) + "."
 			break
 		
 		default:
@@ -408,15 +417,15 @@ function useItem() {
 	}
 	if (inventoryIndexNumber !== -1) {
 		switch(item) {
-			case "a map":
+			case "map":
 				console.log('You used ' + item)
 				break
 			
-			case "a sword":
+			case "sword":
 				console.log('You used ' + item)
 				break
 				
-			case "a shield":
+			case "shield":
 				console.log('You used ' + item)
 				break
 				
@@ -425,6 +434,87 @@ function useItem() {
 }
 
 
+function go() {
+	if (mapLocation == CurLocation) {
+		gameMessage = "You're already at your destination."
+	}
+	switch(mapLocation) {
+		case "riverrun":
+			pastLocation = CurLocation
+			CurLocation = "riverrun"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "panterville":
+			pastLocation = CurLocation
+			CurLocation = "panterville"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "rehmont":
+			pastLocation = CurLocation
+			CurLocation = "rehmont"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "the great expanse":
+			pastLocation = CurLocation
+			CurLocation = "the great expanse"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "ogre hills":
+			pastLocation = CurLocation
+			CurLocation = "ogre hills"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "faerie forest":
+			pastLocation = CurLocation
+			CurLocation = "faerie forest"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "ulidin":
+			pastLocation = CurLocation
+			CurLocation = "ulidin"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "brigand backwood":
+			pastLocation = CurLocation
+			CurLocation = "brigand backwood"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "adventurer's archipelago":
+			pastLocation = CurLocation
+			CurLocation = "adventurer's archipelago"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+			case "the cult of the dragon":
+			pastLocation = CurLocation
+			CurLocation = "the cult of the dragon"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "the fallen city of malakir":
+			pastLocation = CurLocation
+			CurLocation = "the fallen city of malakir"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		case "the scorched mountains":
+			pastLocation = CurLocation
+			CurLocation = "the scorched mountains"
+			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			break
+			
+		default:
+			gameMessage = "Location is unknown."
+	}
+}
 
 
 
@@ -433,7 +523,14 @@ function render() {
 }
 
 
+function titleCase(str) {
+   var splitStr = str.toLowerCase().split(' ')
+   for (var i = 0; i < splitStr.length; i++) {
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1) 
+   }
 
+   return splitStr.join(' ')
+}
 
 
 
