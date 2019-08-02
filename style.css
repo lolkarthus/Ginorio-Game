@@ -192,10 +192,10 @@ footer {
     position:absolute;
     left:0;
  	top: 0;
-	padding-top: 150px;
+	padding-top: 9%;
     z-index:1000;
     width:100%;
-    height:100%;   
+    height:81.9%;   
     line-height:100%;
     background:rgba(0,0,0,0.5);    
 }
@@ -204,4 +204,101 @@ footer {
     max-width:100%;
     margin:0 auto;
     display: block;
+}
+.clickable {
+	z-index: 2000;
+	position: absolute;
+	display: none;
+}
+.clickable:hover {
+	background-color: rgba(255,255,255,0.5);
+}
+#panterville{
+	height: 40px;
+	width: 40px;
+	left: 50.8vw;
+	top: 42vh;
+}
+#rehmont {
+	height: 45px;
+	width: 60px;
+	left: 54vw;
+	top: 40vh;
+}
+#thegreatexpanse{
+	height: 60px;
+	width: 120px;
+	left: 50vw;
+	top: 49vh;
+	transform: rotate(-40deg);
+}
+#ogrehills {
+	height: 70px;
+	width: 80px;
+	left: 50vw;
+	top: 33vh;
+}
+#faerieforest{
+	height: 60px;
+	width: 100px;
+	left: 46vw;
+	top: 43vh;
+	transform: rotate(-60deg);
+}
+#ulidin {
+	height: 40px;
+	width: 40px;
+	left: 46vw;
+	top: 52vh;
+}
+#riverrun {
+	height: 40px;
+	width: 60px;
+	left: 43vw;
+	top: 39vh;
+}
+#brigandbackwood {
+	height: 45px;
+	width: 100px;
+	left: 44vw;
+	top: 33vh;
+	transform: rotate(-30deg);
+}
+#adventurersarchipelago {
+	height: 45px;
+	width: 45px;
+	left: 42vw;
+	top: 56vh;
+}
+#thecultofthedragon {
+	height: 100px;
+	width: 100px;
+	left: 34vw;
+	top: 53vh;
+}
+#thefallencityofmalakir {
+	height: 35px;
+	width: 90px;
+	left: 51vw;
+	top: 68vh;
+}
+#thescorchedmountains {
+	height: 45px;
+	width: 180px;
+	left: 46vw;
+	top: 72vh;
+}
+
+#player {
+	z-index: 2001;
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	display: none;
+    transition: 1s ease-in-out;
+}
+#playerimg {
+	height: 40px;
+	width: 40px;
+	
 }

@@ -250,7 +250,7 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
 var CurLocation = 'panterville'
 var mapLocation = ""
-var pastLocation = ""
+var pastLocation = "panterville"
 
 var items = ['sword', 'map']
 var itemlocations = ['rehmont', 'ogre hills']
@@ -337,6 +337,8 @@ $(".toggle-fullscreen").on("click",function(){
     
 	if (event.keyCode == ESC){
     	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show();
+		$('.clickable').hide()
+		$('#player').hide()
     }
     
 });
@@ -455,6 +457,8 @@ function useItem() {
 		switch(item) {
 			case "map":
 				console.log('You used ' + item)
+				$('.clickable').show()
+				$('#player').show()
 				document.getElementById('clickhere').click()
 				
 				break
@@ -558,6 +562,8 @@ function go() {
 
 function render() {
 	addMessage(gameMessage)
+	moveplayer()
+	
 }
 
 
@@ -570,10 +576,81 @@ function titleCase(str) {
    return splitStr.join(' ')
 }
 
+function goto(place) {
+	console.log('goto initiated')
+	button()
+	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show()
+	$('.clickable').hide()
+	$('#player').hide()
+	mapLocation = place
+	go()
+	render()
+}
 
 
-
-
+function moveplayer() {
+			switch(CurLocation) {
+		case "riverrun":
+			document.getElementById('player').style.left = '43.5vw'
+			document.getElementById('player').style.top = '39vh'
+			break
+			
+		case "panterville":
+			document.getElementById('player').style.left = '50.8vw'
+			document.getElementById('player').style.top = '42vh'
+			break
+			
+		case "rehmont":
+			document.getElementById('player').style.left = '54.6vw'
+			document.getElementById('player').style.top = '41vh'
+			break
+			
+		case "the great expanse":
+			document.getElementById('player').style.left = '52vw'
+			document.getElementById('player').style.top = '49vh'
+			break
+			
+		case "ogre hills":
+			document.getElementById('player').style.left = '51.5vw'
+			document.getElementById('player').style.top = '35vh'
+			break
+			
+		case "faerie forest":
+			document.getElementById('player').style.left = '48vw'
+			document.getElementById('player').style.top = '44vh'
+			break
+			
+		case "ulidin":
+			document.getElementById('player').style.left = '46.4vw'
+			document.getElementById('player').style.top = '53vh'
+			break
+			
+		case "brigand backwood":
+			document.getElementById('player').style.left = '46vw'
+			document.getElementById('player').style.top = '33vh'
+			break
+			
+		case "adventurer's archipelago":
+			document.getElementById('player').style.left = '42vw'
+			document.getElementById('player').style.top = '56vh'
+			break
+			
+			case "the cult of the dragon":
+			document.getElementById('player').style.left = '35.5vw'
+			document.getElementById('player').style.top = '56vh'
+			break
+			
+		case "the fallen city of malakir":
+			document.getElementById('player').style.left = '52vw'
+			document.getElementById('player').style.top = '69vh'
+			break
+			
+		case "the scorched mountains":
+			document.getElementById('player').style.left = '50vw'
+			document.getElementById('player').style.top = '73vh'
+			break
+	}
+	}
 
 
 
