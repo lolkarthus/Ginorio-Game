@@ -7,6 +7,7 @@ var cha = 5
 var str = 5
 var dex = 5
 var vit = 20
+var health = vit
 var money = 0
 var moral = 0
 var race
@@ -247,6 +248,7 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#iscorrect').fadeOut(1000)
 	$('#confirmchar').fadeOut(1000)
 	$('#frm').delay(1000).fadeIn(1000)
+	health = vit
 }
 
 
@@ -595,27 +597,84 @@ function go() {
 	}
 }
 
-function fight() {
-			enemySel.health -= str
-			gameMessage = "You damaged the " + enemySel.name + " by " + str + "." + " It has " + enemySel.health + " hp remaining."
-			if (enemySel.health <= 0) {
-				gameMessage =  titleCase(enemySel.name) + " is defeated. You gain " + enemySel.expgiven + ' exp and ' + enemySel.moneygiven + ' gold.'
-				money += enemySel.moneygiven
-				exp += enemySel.expgiven
-				enemySel.health = enemySel.vit
-				if (exp >= 300) {
-					if (readytolvl(exp) == true) {
-						render()
-						str++
-						int++
-						dex++
-						cha++
-						vit = vit + 2
-						levelmusic()
-						gameMessage = "You've leveled up! You're now level " + lvl + ". You now have " + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' health.'
-				}
-				}
+function youattack() {
+	if (enemySel.health-str <= 0) {
+		var goingtokill = true
+	}
+	enemySel.health -= str
+	if (enemySel.health <= 0){
+		enemySel.health = 0
+	}
+	gameMessage = "You damaged the " + enemySel.name + " by " + str + "." + " It has " + enemySel.health + " health remaining."
+	if (dex >= enemySel.dex || goingtokill == true) {
+		render()
+	}
+	goingtokill = false
+	if (enemySel.health <= 0) {
+		gameMessage =  titleCase(enemySel.name) + " is defeated. You gain " + enemySel.expgiven + ' exp and ' + enemySel.moneygiven + ' gold.'
+		money += enemySel.moneygiven
+		exp += enemySel.expgiven
+		if (exp >= 300) {
+			if (readytolvl(exp) == true) {
+				render()
+				str++
+				int++
+				dex++
+				cha++
+				vit = vit + 2
+				health = health + 2
+				levelmusic()
+				gameMessage = "You've leveled up! You're now level " + lvl + ". You now have " + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' max health.'
 			}
+		}
+	}
+	if (dex < enemySel.dex && enemySel.health <= 0) {
+		enemySel.health = enemySel.vit
+	}
+}
+
+function heattacks() {
+	var dodgechance = dex/100
+	Math.rando
+	if (enemySel.health > 0) {
+		health -= enemySel.str
+		if (health <= 0){
+			health = 0
+		}
+		gameMessage = titleCase(enemySel.name) + ' did ' + enemySel.str + " damage to you. You're at " + health + ' health.'
+		if (dex < enemySel.dex) {
+			render()
+		}
+		if (health <= 0) {
+			for (i = 1; i < lvl; i++) {
+				str--
+				int--
+				dex--
+				cha--
+				vit--
+			}
+			render()
+			lvl = 0
+			exp = 0
+			money = 50
+			inventory = []
+			health = vit
+			moral = 0
+			gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
+		}	
+	} else if (dex >= enemySel.dex) {
+		enemySel.health = enemySel.vit
+	}				
+}
+
+function fight() {
+	if (dex >= enemySel.dex) {
+		youattack()
+		heattacks()
+	} else if (dex < enemySel.dex) {
+		heattacks()
+		youattack()
+	}			
 }
 
 function readytolvl(xp) {
@@ -641,7 +700,6 @@ function titleCase(str) {
    for (var i = 0; i < splitStr.length; i++) {
        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1) 
    }
-
    return splitStr.join(' ')
 }
 
@@ -800,14 +858,4 @@ function chat(e) {
 }
 
 document.getElementById('frm').addEventListener("submit", chat, false)
-
-
-
-
-
-
-
-
-
-
 
