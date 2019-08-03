@@ -16,8 +16,8 @@ var klass
 
 //introbgmusic = new Audio('the_road_home.mp3');
 //introbgmusic.addEventListener('ended', function() {
- //   this.currentTime = 0;
- //   this.play();
+//   this.currentTime = 0;
+//   this.play();
 //}, false);
 //introbgmusic.play();
 
@@ -37,13 +37,14 @@ function printstats() {
 
 function button() {
 	snd.play()
-	snd.currentTime=0
+	snd.currentTime = 0
 }
 
 function levelmusic() {
 	lvlupeffect.play()
-	lvlupeffect.currentTime=0
+	lvlupeffect.currentTime = 0
 }
+
 function selectrace(rce) {
 	button()
 	race = rce
@@ -81,32 +82,32 @@ document.getElementById('confirmrace').onclick = function replaceb() {
 		cha = 6
 		str = 5
 		dex = 5
- 		vit = 20
+		vit = 20
 	}
 	if (race == 'elf') {
 		dex = 6
 		int = 6
 		str = 5
 		cha = 5
- 		vit = 20
-		}
+		vit = 20
+	}
 	if (race == 'dwarf') {
 		str = 6
 		vit = 22
 		int = 5
 		dex = 5
- 		cha = 5
+		cha = 5
 	}
-	
+
 	printstats()
-	
+
 	$('#racetable').fadeOut(1000)
 	$('#confirmrace').fadeOut(1000)
 	$('#raceinfo').fadeOut(1000)
 	$('#bgquestion').delay(1000).fadeIn()
 	$('#confirmbg').delay(1000).fadeIn()
 	$('#bgtable').delay(1000).fadeIn()
-	
+
 }
 
 document.getElementById('confirmbg').onclick = function replacec() {
@@ -144,9 +145,9 @@ document.getElementById('confirmbg').onclick = function replacec() {
 		money = 45
 		$('#hunterinfo').delay(1000).fadeIn()
 	}
-	
+
 	printstats()
-	
+
 	$('#bgquestion').fadeOut(1000)
 	$('#bgtable').fadeOut(1000)
 	$('#confirmbg').fadeOut(1000)
@@ -193,15 +194,15 @@ document.getElementById('confirmclass').onclick = function replacef() {
 	}
 	if (klass == "ranger") {
 		dex = dex + 2
-		//add items
+			//add items
 	}
 	if (klass == "mage") {
 		int = int + 2
-		//add items
+			//add items
 	}
-	
+
 	printstats()
-	
+
 	$('#classtable').fadeOut(1000)
 	$('#confirmclass').fadeOut(1000)
 	$('#iscorrect').delay(1000).fadeIn()
@@ -259,11 +260,6 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 
 
 
-
-
-
-
-
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
 var CurLocation = 'panterville'
 var mapLocation = ""
@@ -276,7 +272,7 @@ var inventory = []
 
 var playersInput = ""
 var gameMessage = ""
-// Array of actions the game knows and a var for the current action
+	// Array of actions the game knows and a var for the current action
 var actionsIknow = ['help', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
 var action = ""
 
@@ -288,7 +284,7 @@ var troll = new Enemy('troll', 7, 4, 5, 25, 60, 20)
 var enemies = [ogre, troll]
 var enemylocations = ['ogre hills', 'brigand backwood']
 var enemiesIknow = [ogre, troll]
-var enemySel = "" 
+var enemySel = ""
 
 
 
@@ -299,8 +295,8 @@ var enemySel = ""
 // input and output fields
 var input = document.querySelector("#message")
 var output = document.querySelector('#txtArea')
-//On enter key the command recognition is started
-input.addEventListener("keyup", function(event){
+	//On enter key the command recognition is started
+input.addEventListener("keyup", function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault
 		playGame()
@@ -312,98 +308,96 @@ input.addEventListener("keyup", function(event){
 function playGame() {
 	//Converts player input to lowercase
 	playersInput = playersInput.toLowerCase()
-	
+
 	//reset variable
 	gameMessage = ""
 	action = ""
-	 
- 	//loops through all commands checking if input matches it and if so assigning it to current action
-	for(i = 0; i < actionsIknow.length; i++) {
-		
-		if(playersInput.indexOf(actionsIknow[i]) !== -1) {
+
+	//loops through all commands checking if input matches it and if so assigning it to current action
+	for (i = 0; i < actionsIknow.length; i++) {
+
+		if (playersInput.indexOf(actionsIknow[i]) !== -1) {
 			action = actionsIknow[i]
 			console.log("player's action: " + action)
 			break
 		}
 	}
-	
+
 	for (i = 0; i < itemsIknow.length; i++) {
-		if(playersInput.indexOf(itemsIknow[i]) !== -1) {
+		if (playersInput.indexOf(itemsIknow[i]) !== -1) {
 			item = itemsIknow[i]
 			console.log("player's item: " + item)
 		}
 	}
-	
+
 	for (i = 0; i < locationsIknow.length; i++) {
-		if(playersInput.indexOf(locationsIknow[i]) !== -1) {
+		if (playersInput.indexOf(locationsIknow[i]) !== -1) {
 			mapLocation = locationsIknow[i]
 			console.log("Player wants to go to: " + mapLocation)
 		}
 	}
-	
-	
+
+
 	for (i = 0; i < enemiesIknow.length; i++) {
 		if (playersInput.indexOf(enemiesIknow[i].name) !== -1) {
 			enemySel = enemiesIknow[i]
 			console.log("Player wants to attack " + enemiesIknow[i].name)
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-$(".toggle-fullscreen").on("click",function(){
 
-    var imageBlock = $(this).parent();
-    
-    $(this).hide();
-    
-    imageBlock.addClass('fullscreen-mode');
-    
-});	
+
+
+
+
+
+
+
+	$(".toggle-fullscreen").on("click", function () {
+
+		var imageBlock = $(this).parent();
+
+		$(this).hide();
+
+		imageBlock.addClass('fullscreen-mode');
+
+	});
 	//choose correct action
-	$(document).on('keyup', function(event){
-    
-    var ESC = 27;
-    
-	if (event.keyCode == ESC){
-    	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show();
-		$('.clickable').hide()
-		$('#player').hide()
-		$('#map').hide()
-    }
-    
-});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	switch(action) {
-		
+	$(document).on('keyup', function (event) {
+
+		var ESC = 27;
+
+		if (event.keyCode == ESC) {
+			$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show();
+			$('.clickable').hide()
+			$('#player').hide()
+			$('#map').hide()
+		}
+
+	});
+
+
+
+
+
+
+
+
+
+	switch (action) {
+
 		case "help":
 			console.log('help')
 			var str1 = actionsIknow.join(", ")
 			str1 = str1.split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
 			gameMessage = 'Current commands are ' + str1
 			break
-			
-			
+
+
 		case "fight":
 			console.log('fight')
 			fight()
 			break
-			
+
 		case "inventory":
 			console.log('inventory')
 			var str2 = ''
@@ -416,36 +410,36 @@ $(".toggle-fullscreen").on("click",function(){
 			if (inventory.length == 2) {
 				str2 = inventory.join(' and ')
 			}
-			if (inventory.length >=3 ) {
+			if (inventory.length >= 3) {
 				str2 = inventory.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
 			}
 			gameMessage = 'You have ' + str2 + '.'
 			break
-			
-		case "take":	
+
+		case "take":
 			takeItem()
 			break
-			
+
 		case "drop":
 			dropItem()
 			break
-			
+
 		case "use":
 			useItem()
 			break
-			
+
 		case 'go':
 			go()
 			break
-		
+
 		case 'where':
 			gameMessage = "You are at " + titleCase(CurLocation) + "."
 			break
-		
+
 		default:
 			gameMessage = "Command not valid. Type help."
 	}
-		render()
+	render()
 
 }
 
@@ -454,7 +448,7 @@ $(".toggle-fullscreen").on("click",function(){
 function takeItem() {
 	var itemIndexNumber = items.indexOf(item)
 	console.log('madeit')
-	if(itemIndexNumber !== -1 && itemlocations[itemIndexNumber] === CurLocation) {
+	if (itemIndexNumber !== -1 && itemlocations[itemIndexNumber] === CurLocation) {
 		gameMessage = "You take " + item + "."
 		inventory.push(item)
 		items.splice(itemIndexNumber, 1)
@@ -491,7 +485,7 @@ function useItem() {
 		gameMessage = "You don't have any items."
 	}
 	if (inventoryIndexNumber !== -1) {
-		switch(item) {
+		switch (item) {
 			case "map":
 				console.log('You used ' + item)
 				$('.clickable').show()
@@ -499,17 +493,17 @@ function useItem() {
 				$('#map').show()
 				$('#frm').show()
 				document.getElementById('clickhere').click()
-				
+
 				break
-			
+
 			case "sword":
 				console.log('You used ' + item)
 				break
-				
+
 			case "shield":
 				console.log('You used ' + item)
 				break
-				
+
 		}
 	}
 }
@@ -519,49 +513,49 @@ function go() {
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
 	}
-	switch(mapLocation) {
+	switch (mapLocation) {
 		case "riverrun":
 			pastLocation = CurLocation
 			CurLocation = "riverrun"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "panterville":
 			pastLocation = CurLocation
 			CurLocation = "panterville"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "rehmont":
 			pastLocation = CurLocation
 			CurLocation = "rehmont"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "the great expanse":
 			pastLocation = CurLocation
 			CurLocation = "the great expanse"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "ogre hills":
 			pastLocation = CurLocation
 			CurLocation = "ogre hills"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "faerie forest":
 			pastLocation = CurLocation
 			CurLocation = "faerie forest"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "ulidin":
 			pastLocation = CurLocation
 			CurLocation = "ulidin"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "brigand backwood":
 			pastLocation = CurLocation
 			CurLocation = "brigand backwood"
@@ -573,13 +567,13 @@ function go() {
 			CurLocation = "adventurer's archipelago"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
-			case "the cult of the dragon":
+
+		case "the cult of the dragon":
 			pastLocation = CurLocation
 			CurLocation = "the cult of the dragon"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		case "the fallen city of malakir":
 			pastLocation = CurLocation
 			CurLocation = "the fallen city of malakir"
@@ -591,91 +585,103 @@ function go() {
 			CurLocation = "the scorched mountains"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+
 		default:
 			gameMessage = "Location is unknown."
 	}
 }
 var goingtokill = false
+
 function youattack() {
-	if (enemySel.health-str <= 0) {
-		goingtokill = true
-	}
-	enemySel.health -= str
-	if (enemySel.health <= 0){
-		enemySel.health = 0
-	}
-	gameMessage = "You damaged the " + enemySel.name + " by " + str + "." + " It has " + enemySel.health + " health remaining."
-	if (dex >= enemySel.dex || goingtokill == true) {
-		render()
-	}
-	goingtokill = false
-	if (enemySel.health <= 0) {
-		gameMessage =  titleCase(enemySel.name) + " is defeated. You gain " + enemySel.expgiven + ' exp and ' + enemySel.moneygiven + ' gold.'
-		money += enemySel.moneygiven
-		exp += enemySel.expgiven
-		if (exp >= 300) {
-			if (readytolvl(exp) == true) {
-				render()
-				str++
-				int++
-				dex++
-				cha++
-				vit = vit + 2
-				health = health + 2
-				levelmusic()
-				gameMessage = "You've leveled up! You're now level " + lvl + ". You now have " + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' max health.'
+	var random = getRandomIntInclusive(1, 100)
+	if (random > enemySel.dex) {
+
+		if (enemySel.health - str <= 0) {
+			goingtokill = true
+		}
+		enemySel.health -= str
+		if (enemySel.health <= 0) {
+			enemySel.health = 0
+		}
+		gameMessage = "You damaged the " + enemySel.name + " by " + str + "." + " It has " + enemySel.health + " health remaining."
+		if (dex >= enemySel.dex || goingtokill == true) {
+			render()
+		}
+		goingtokill = false
+		if (enemySel.health <= 0) {
+			gameMessage = titleCase(enemySel.name) + " is defeated. You gain " + enemySel.expgiven + ' exp and ' + enemySel.moneygiven + ' gold.'
+			money += enemySel.moneygiven
+			exp += enemySel.expgiven
+			if (exp >= 300) {
+				if (readytolvl(exp) == true) {
+					render()
+					str++
+					int++
+					dex++
+					cha++
+					vit = vit + 2
+					health = health + 2
+					levelmusic()
+					gameMessage = "You've leveled up! You're now level " + lvl + ". You now have " + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' max health.'
+				}
 			}
 		}
+	} else {
+		gameMessage = titleCase(enemySel.name) + " dodged your attack! " + titleCase(enemySel.name) + "'s health remains at " + enemySel.health + "."
+		if (dex >= enemySel.dex) {
+			render()
+		}
 	}
+
 	if (dex < enemySel.dex && enemySel.health <= 0) {
 		enemySel.health = enemySel.vit
 	}
 }
 
 function heattacks() {
-	var yourrandom = getRandomIntInclusive(1,100)
-		if (enemySel.health > 0) {
-			
-			if (yourrandom > dex) {
-			
-				health -= enemySel.str
-				if (health <= 0){
-					health = 0
+	var random = getRandomIntInclusive(1, 100)
+
+	if (enemySel.health > 0) {
+
+		if (random > dex) {
+
+			health -= enemySel.str
+			if (health <= 0) {
+				health = 0
+			}
+			gameMessage = titleCase(enemySel.name) + ' did ' + enemySel.str + " damage to you. You're at " + health + ' health.'
+			if (dex < enemySel.dex) {
+				render()
+			}
+			if (health <= 0) {
+				for (i = 1; i < lvl; i++) {
+					str--
+					int--
+					dex--
+					cha--
+					vit--
 				}
-				gameMessage = titleCase(enemySel.name) + ' did ' + enemySel.str + " damage to you. You're at " + health + ' health.'
-				if (dex < enemySel.dex) {
-					render()
-				}
-				if (health <= 0) {
-					for (i = 1; i < lvl; i++) {
-						str--
-						int--
-						dex--
-						cha--
-						vit--
-					}
-					render()
-					lvl = 0
-					exp = 0
-					money = 50
-					inventory = []
-					health = vit
-					moral = 0
-					gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
-				}
-				
-			} else {
-				gameMessage = "You dodged the " + enemySel.name + "'s attack! You remain at " + health + ' health.'
-					if (dex < enemySel.dex) {
-						render()
-					}
-				} 				
-		} else if (dex >= enemySel.dex) {
-			enemySel.health = enemySel.vit
-				} 
+				render()
+				lvl = 0
+				exp = 0
+				money = 50
+				inventory = []
+				health = vit
+				moral = 0
+				gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
+			}
+
+		} else {
+			gameMessage = "You dodged the " + enemySel.name + "'s attack! You remain at " + health + ' health.'
+			if (dex < enemySel.dex) {
+				render()
+			}
+		}
+	} else if (dex >= enemySel.dex) {
+		enemySel.health = enemySel.vit
+	}
 }
-	
+
 
 function fight() {
 	if (dex >= enemySel.dex) {
@@ -684,15 +690,15 @@ function fight() {
 	} else if (dex < enemySel.dex) {
 		heattacks()
 		youattack()
-	}			
+	}
 }
 
 function readytolvl(xp) {
 	var oldlvl = lvl
-	//need to rework lvl equation
-	lvl = Math.round(0.0303721*Math.sqrt((xp-300))+2.39352)
+		//need to rework lvl equation
+	lvl = Math.round(0.0303721 * Math.sqrt((xp - 300)) + 2.39352)
 	if (lvl != oldlvl) {
-		return true	
+		return true
 	} else {
 		return false
 	}
@@ -701,22 +707,22 @@ function readytolvl(xp) {
 function render() {
 	addMessage(gameMessage)
 	moveplayer()
-	
+
 }
 
 
 function titleCase(str) {
-   var splitStr = str.toLowerCase().split(' ')
-   for (var i = 0; i < splitStr.length; i++) {
-       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1) 
-   }
-   return splitStr.join(' ')
+	var splitStr = str.toLowerCase().split(' ')
+	for (var i = 0; i < splitStr.length; i++) {
+		splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1)
+	}
+	return splitStr.join(' ')
 }
 
 function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 }
 
 function goto(place) {
@@ -733,100 +739,68 @@ function goto(place) {
 
 
 function moveplayer() {
-			switch(CurLocation) {
+	switch (CurLocation) {
 		case "riverrun":
 			document.getElementById('player').style.left = '43.5vw'
 			document.getElementById('player').style.top = '39vh'
 			break
-			
+
 		case "panterville":
 			document.getElementById('player').style.left = '50.8vw'
 			document.getElementById('player').style.top = '42vh'
 			break
-			
+
 		case "rehmont":
 			document.getElementById('player').style.left = '54.6vw'
 			document.getElementById('player').style.top = '41vh'
 			break
-			
+
 		case "the great expanse":
 			document.getElementById('player').style.left = '52vw'
 			document.getElementById('player').style.top = '49vh'
 			break
-			
+
 		case "ogre hills":
 			document.getElementById('player').style.left = '51.5vw'
 			document.getElementById('player').style.top = '35vh'
 			break
-			
+
 		case "faerie forest":
 			document.getElementById('player').style.left = '48vw'
 			document.getElementById('player').style.top = '44vh'
 			break
-			
+
 		case "ulidin":
 			document.getElementById('player').style.left = '46.4vw'
 			document.getElementById('player').style.top = '53vh'
 			break
-			
+
 		case "brigand backwood":
 			document.getElementById('player').style.left = '46vw'
 			document.getElementById('player').style.top = '33vh'
 			break
-			
+
 		case "adventurer's archipelago":
 			document.getElementById('player').style.left = '42vw'
 			document.getElementById('player').style.top = '56vh'
 			break
-			
-			case "the cult of the dragon":
+
+		case "the cult of the dragon":
 			document.getElementById('player').style.left = '35.5vw'
 			document.getElementById('player').style.top = '56vh'
 			break
-			
+
 		case "the fallen city of malakir":
 			document.getElementById('player').style.left = '52vw'
 			document.getElementById('player').style.top = '69vh'
 			break
-			
+
 		case "the scorched mountains":
 			document.getElementById('player').style.left = '50vw'
 			document.getElementById('player').style.top = '73vh'
 			break
 	}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
 
 
 
@@ -842,15 +816,15 @@ function hasVertScrollbar(elem) {
 }
 
 function addMessage(str) {
-	
+
 	var textarea = document.getElementById("txtArea")
-	
+
 	//remove all padding
-	var val = textarea.value.replace(/^\n+/,"")
-	//update value with message
+	var val = textarea.value.replace(/^\n+/, "")
+		//update value with message
 	val += (new Date()).toLocaleTimeString() + ": " + str + "\n"
 	textarea.value = val
-	
+
 	//create loop where we add line break until a scrollbar appears
 	var padding = []
 	while (!hasVertScrollbar(textarea)) {
@@ -859,11 +833,12 @@ function addMessage(str) {
 	}
 	//need to remove one
 	padding.pop()
-	//update textarea with the padding and updated text
+		//update textarea with the padding and updated text
 	textarea.value = padding.join("") + val
-	//scroll to bottom
+		//scroll to bottom
 	textarea.scrollTop = textarea.scrollHeight
 }
+
 function chat(e) {
 	var msg = document.getElementById("message")
 	addMessage(msg.value)
@@ -874,4 +849,3 @@ function chat(e) {
 }
 
 document.getElementById('frm').addEventListener("submit", chat, false)
-
