@@ -1,4 +1,5 @@
 var snd = new Audio("button.mp3")
+var lvlupeffect = new Audio('lvlup.mp3')
 var lvl = 1
 var exp = 0
 var int = 5
@@ -38,6 +39,10 @@ function button() {
 	snd.currentTime=0
 }
 
+function levelmusic() {
+	lvlupeffect.play()
+	lvlupeffect.currentTime=0
+}
 function selectrace(rce) {
 	button()
 	race = rce
@@ -247,6 +252,16 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 
 
 
+
+
+
+
+
+
+
+
+
+
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
 var CurLocation = 'panterville'
 var mapLocation = ""
@@ -265,6 +280,19 @@ var action = ""
 
 var itemsIknow = ['sword', 'map']
 var item = ""
+
+var ogre = new Enemy('ogre', 7, 4, 4, 26, 50, 15)
+var troll = new Enemy('troll', 7, 4, 5, 25, 60, 20)
+var enemies = [ogre, troll]
+var enemylocations = ['ogre hills', 'brigand backwood']
+var enemiesIknow = [ogre, troll]
+var enemySel = "" 
+
+
+
+
+
+
 
 // input and output fields
 var input = document.querySelector("#message")
@@ -307,12 +335,17 @@ function playGame() {
 	for (i = 0; i < locationsIknow.length; i++) {
 		if(playersInput.indexOf(locationsIknow[i]) !== -1) {
 			mapLocation = locationsIknow[i]
-			console.log("Player's want's to go to: " + mapLocation)
+			console.log("Player wants to go to: " + mapLocation)
 		}
 	}
 	
 	
-	
+	for (i = 0; i < enemiesIknow.length; i++) {
+		if (playersInput.indexOf(enemiesIknow[i].name) !== -1) {
+			enemySel = enemiesIknow[i]
+			console.log("Player wants to attack " + enemiesIknow[i].name)
+		}
+	}
 	
 	
 	
@@ -366,6 +399,7 @@ $(".toggle-fullscreen").on("click",function(){
 			
 		case "fight":
 			console.log('fight')
+			fight()
 			break
 			
 		case "inventory":
@@ -561,7 +595,39 @@ function go() {
 	}
 }
 
+function fight() {
+			enemySel.health -= str
+			gameMessage = "You damaged the " + enemySel.name + " by " + str + "." + " It has " + enemySel.health + " hp remaining."
+			if (enemySel.health <= 0) {
+				gameMessage =  titleCase(enemySel.name) + " is defeated. You gain " + enemySel.expgiven + ' exp and ' + enemySel.moneygiven + ' gold.'
+				money += enemySel.moneygiven
+				exp += enemySel.expgiven
+				enemySel.health = enemySel.vit
+				if (exp >= 300) {
+					if (readytolvl(exp) == true) {
+						render()
+						str++
+						int++
+						dex++
+						cha++
+						vit = vit + 2
+						levelmusic()
+						gameMessage = "You've leveled up! You're now level " + lvl + ". You now have " + str + ' strength' + ', ' + int + ' intelligence, ' + dex + ' dexterity, ' + cha + ' charisma, and ' + vit + ' health.'
+				}
+				}
+			}
+}
 
+function readytolvl(xp) {
+	var oldlvl = lvl
+	//need to rework lvl equation
+	lvl = Math.round(0.0303721*Math.sqrt((xp-300))+2.39352)
+	if (lvl != oldlvl) {
+		return true	
+	} else {
+		return false
+	}
+}
 
 function render() {
 	addMessage(gameMessage)
