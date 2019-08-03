@@ -596,10 +596,10 @@ function go() {
 			gameMessage = "Location is unknown."
 	}
 }
-
+var goingtokill = false
 function youattack() {
 	if (enemySel.health-str <= 0) {
-		var goingtokill = true
+		goingtokill = true
 	}
 	enemySel.health -= str
 	if (enemySel.health <= 0){
@@ -634,38 +634,48 @@ function youattack() {
 }
 
 function heattacks() {
-	var dodgechance = dex/100
-	Math.rando
-	if (enemySel.health > 0) {
-		health -= enemySel.str
-		if (health <= 0){
-			health = 0
-		}
-		gameMessage = titleCase(enemySel.name) + ' did ' + enemySel.str + " damage to you. You're at " + health + ' health.'
-		if (dex < enemySel.dex) {
-			render()
-		}
-		if (health <= 0) {
-			for (i = 1; i < lvl; i++) {
-				str--
-				int--
-				dex--
-				cha--
-				vit--
-			}
-			render()
-			lvl = 0
-			exp = 0
-			money = 50
-			inventory = []
-			health = vit
-			moral = 0
-			gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
-		}	
-	} else if (dex >= enemySel.dex) {
-		enemySel.health = enemySel.vit
-	}				
+	var yourrandom = getRandomIntInclusive(1,100)
+		if (enemySel.health > 0) {
+			
+			if (yourrandom > dex) {
+			
+				health -= enemySel.str
+				if (health <= 0){
+					health = 0
+				}
+				gameMessage = titleCase(enemySel.name) + ' did ' + enemySel.str + " damage to you. You're at " + health + ' health.'
+				if (dex < enemySel.dex) {
+					render()
+				}
+				if (health <= 0) {
+					for (i = 1; i < lvl; i++) {
+						str--
+						int--
+						dex--
+						cha--
+						vit--
+					}
+					render()
+					lvl = 0
+					exp = 0
+					money = 50
+					inventory = []
+					health = vit
+					moral = 0
+					gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
+				}
+				
+			} else {
+				gameMessage = "You dodged the " + enemySel.name + "'s attack! You remain at " + health + ' health.'
+					if (dex < enemySel.dex) {
+						render()
+					}
+				} 				
+		} else if (dex >= enemySel.dex) {
+			enemySel.health = enemySel.vit
+				} 
 }
+	
 
 function fight() {
 	if (dex >= enemySel.dex) {
@@ -701,6 +711,12 @@ function titleCase(str) {
        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1) 
    }
    return splitStr.join(' ')
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 }
 
 function goto(place) {
