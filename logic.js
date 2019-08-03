@@ -339,6 +339,7 @@ $(".toggle-fullscreen").on("click",function(){
     	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show();
 		$('.clickable').hide()
 		$('#player').hide()
+		$('#map').hide()
     }
     
 });
@@ -459,6 +460,8 @@ function useItem() {
 				console.log('You used ' + item)
 				$('.clickable').show()
 				$('#player').show()
+				$('#map').show()
+				$('#frm').show()
 				document.getElementById('clickhere').click()
 				
 				break
@@ -528,25 +531,26 @@ function go() {
 			CurLocation = "brigand backwood"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+		case "archipelago":
 		case "adventurer's archipelago":
 			pastLocation = CurLocation
 			CurLocation = "adventurer's archipelago"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+		case "cult":
 			case "the cult of the dragon":
 			pastLocation = CurLocation
 			CurLocation = "the cult of the dragon"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
 			
+		case "malakir":
 		case "the fallen city of malakir":
 			pastLocation = CurLocation
 			CurLocation = "the fallen city of malakir"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 			break
-			
+		case "scorched mountains":
 		case "the scorched mountains":
 			pastLocation = CurLocation
 			CurLocation = "the scorched mountains"
