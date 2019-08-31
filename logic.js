@@ -1,5 +1,5 @@
-var snd = new Audio("button.mp3")
-var lvlupeffect = new Audio('lvlup.mp3')
+var snd = new Audio("Assets/Music/button.mp3")
+var lvlupeffect = new Audio('Assets/Music/lvlup.mp3')
 var lvl = 1
 var exp = 0
 var int = 5
@@ -14,12 +14,12 @@ var race
 var bg
 var klass
 
-//introbgmusic = new Audio('the_road_home.mp3');
+//introbgmusic = new Audio('Assets/Music/the_road_home.mp3')
 //introbgmusic.addEventListener('ended', function() {
 //   this.currentTime = 0;
-//   this.play();
-//}, false);
-//introbgmusic.play();
+//   this.play()
+//}, false)
+//introbgmusic.play()
 
 
 function printstats() {
@@ -45,15 +45,33 @@ function levelmusic() {
 	lvlupeffect.currentTime = 0
 }
 
+function updatebackgroundimages() {
+	document.getElementById("farmer_image").src = "Assets/Images/" + titleCase(race) + "/Farmer_Ginorio.png"
+	document.getElementById("hunter_image").src = "Assets/Images/" + titleCase(race) + "/Hunter_Ginorio.png"
+	document.getElementById("merchant_image").src = "Assets/Images/" + titleCase(race) + "/Merchant_Ginorio.png"
+	document.getElementById("noble_image").src = "Assets/Images/" + titleCase(race) + "/Noble_Ginorio.png"
+	document.getElementById("orphan_image").src = "Assets/Images/" + titleCase(race) + "/Orphan_Ginorio.png"
+}
+
+function updateclassimages() {
+	document.getElementById("warrior_image").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Warrior_Ginorio.png"
+	document.getElementById("ranger_image").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Ranger_Ginorio.png"
+	document.getElementById("mage_image").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Mage_Ginorio.png"
+}
+
 function selectrace(rce) {
 	button()
 	race = rce
+	updatebackgroundimages()
 }
 
 function selectbg(background) {
 	button()
 	bg = background
+	updateclassimages()
 }
+
+
 
 function selectclass(playerclass) {
 	button()
@@ -669,6 +687,7 @@ function heattacks() {
 				health = vit
 				moral = 0
 				gameMessage = titleCase(enemySel.name) + ' has killed you. Game over!'
+				enemySel.health = enemySel.vit
 			}
 
 		} else {
@@ -728,10 +747,6 @@ function getRandomIntInclusive(min, max) {
 function goto(place) {
 	console.log('goto initiated')
 	button()
-	$('.fullscreen-mode').removeClass('fullscreen-mode').find('a.toggle-fullscreen').show()
-	$('.clickable').hide()
-	$('#player').hide()
-	$('#map').hide()
 	mapLocation = place
 	go()
 	render()

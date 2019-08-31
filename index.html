@@ -3,10 +3,10 @@
 <head>
 
 	<title>G&amp;D</title>
-<img src="highlogo.png" id="logo" alt="G&D">
+<img src="Assets/Images/highlogo.png" id="logo" alt="G&D">
 	
 	<link href="style.css" rel="stylesheet" type="text/css">
-	<link rel="icon" type="image/png" href="icon_GD.png">
+	<link rel="icon" type="image/ico" href="icon_GD.ico">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	
 	</head>
@@ -27,9 +27,9 @@
 <table width="200" border="1" class="table" id="racetable">
   <tbody>
     <tr>
-      <td onClick="selectrace('human')"><img src="Human_Ginorio.jpg" alt="Human" class="ginorioimg"></td>
-      <td onClick="selectrace('elf')"><img src="Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
-      <td onClick="selectrace('dwarf')"><img src="Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
+      <td onClick="selectrace('human')"><img src="Assets/Images/Human/Human_Ginorio.png" alt="Human" class="ginorioimg"></td>
+      <td onClick="selectrace('elf')"><img src="Assets/Images/Elf/Elf_Ginorio.jpg" alt="Elf" class="ginorioimg"></td>
+      <td onClick="selectrace('dwarf')"><img src="Assets/Images/Dwarf/Dwarf_Ginorio.jpg" alt="Dwarf" class="ginorioimg"></td>
     </tr>
     <tr id="racerow">
       <td id="humanrace" onClick="selectrace('human')">Human</td>
@@ -47,11 +47,11 @@
 <table width="200" border="1" class="table" id="bgtable">
   <tbody>
     <tr>
-	  <td onClick="selectbg('farmer')"><img src="Farmer_Ginorio.jpg" alt="Farmers"></td>
-      <td onClick="selectbg('noble')"><img src="Noble_Ginorio.jpg" alt="Nobles"></td>
-      <td onClick="selectbg('orphan')"><img src="Orphan_Ginorio.jpg" alt="Orphan"></td>
-      <td onClick="selectbg('merchant')"><img src="Merchant_Ginorio.png" alt="Merchants"></td>
-      <td onClick="selectbg('hunter')"><img src="Hunter_Ginorio.png" alt="Hunters"></td> 
+	  <td onClick="selectbg('farmer')"><img src="Assets/Images/Human/Farmer_Ginorio.png" alt="Farmers" id="farmer_image" class="tableimage"></td>
+      <td onClick="selectbg('noble')"><img src="Assets/Images/Human/Noble_Ginorio.png" alt="Nobles" id="noble_image" class="tableimage"></td>
+      <td onClick="selectbg('orphan')"><img src="Assets/Images/Human/Orphan_Ginorio.png" alt="Orphan" id="orphan_image" class="tableimage"></td>
+      <td onClick="selectbg('merchant')"><img src="Assets/Images/Human/Merchant_Ginorio.png" alt="Merchants" id="merchant_image" class="tableimage"></td>
+      <td onClick="selectbg('hunter')"><img src="Assets/Images/Human/Hunter_Ginorio.png" alt="Hunters" id="hunter_image" class="tableimage"></td> 
 	  </tr>
   	<tr>
       <td onClick="selectbg('farmer')">Farmers</td>
@@ -106,9 +106,9 @@
 	<table width="500" border="1" class="table" id="classtable">
   <tbody>
     <tr>
-      <td onClick="selectclass('warrior')"><img src="Warrior_Ginorio.png" alt="Warrior"></td>
-      <td onClick="selectclass('ranger')"><img src="Ranger_Ginorio.png" alt="Ranger"></td>
-      <td onClick="selectclass('mage')"><img src="Mage_Ginorio.png" alt="Mage"></td>
+      <td onClick="selectclass('warrior')"><img src="Warrior_Ginorio.png" alt="Warrior" id="warrior_image" class="tableimage"></td>
+      <td onClick="selectclass('ranger')"><img src="Ranger_Ginorio.png" alt="Ranger" id="ranger_image" class="tableimage"></td>
+      <td onClick="selectclass('mage')"><img src="Mage_Ginorio.png" alt="Mage" id="mage_image" class="tableimage"></td>
     </tr>
     <tr>
       <td onClick="selectclass('warrior')">Warrior</td>
@@ -135,7 +135,7 @@
 		
 <div class="imageDemoBlock">
 	<a class="toggle-fullscreen" href="#" id="clickhere"></a>	
-	<img src="Map.jpg" alt="Map" id="map">	
+	<img src="Assets/Images/Map.jpg" alt="Map" id="map">	
 </div>		
 <div class="clickable" id="panterville" onClick="goto('panterville')"></div>
 <div class="clickable" id="rehmont" onClick="goto('rehmont')"></div>
@@ -153,7 +153,7 @@
 		
 		
 		
-<div id="player"><img id="playerimg" src="Ginorioface.png" alt="Player"></div>
+<div id="player"><img id="playerimg" src="Assets/Images/Human/Ginorioface.png" alt="Player"></div>
 	<footer id="footer">This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 	
 	<script type="text/javascript" src="enemy.js"></script>
