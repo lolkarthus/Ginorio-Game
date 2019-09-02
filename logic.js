@@ -283,10 +283,19 @@ var CurLocation = 'panterville'
 var mapLocation = ""
 var pastLocation = "panterville"
 
-var items = ['sword', 'map']
-var itemlocations = ['rehmont', 'ogre hills']
 
-var inventory = []
+//name, location, damage, rarity, price, weight
+//rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
+var sword = new newitem("sword", "rehmont", 5, 1, 30, 6)
+var bow = new newitem("bow", "faerie forest", 5, 1, 30, 4)
+var staff = new newitem("staff", "panterville", 5, 1, 30, 4)
+var club = new newitem("club", 0, 7, 1, 5, 10)
+var map = new newitem("map", 0, 0, 1, 20, 1)
+
+var items = [sword, bow, staff, club, map]
+//var itemlocations = ['rehmont', 'ogre hills']
+
+var inventory = [map]
 
 var playersInput = ""
 var gameMessage = ""
@@ -294,14 +303,18 @@ var gameMessage = ""
 var actionsIknow = ['help', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
 var action = ""
 
-var itemsIknow = ['sword', 'map']
+var itemsIknow = items
 var item = ""
 
-var ogre = new Enemy('ogre', 7, 4, 4, 26, 50, 15)
-var troll = new Enemy('troll', 7, 4, 5, 25, 60, 20)
-var enemies = [ogre, troll]
-var enemylocations = ['ogre hills', 'brigand backwood']
-var enemiesIknow = [ogre, troll]
+
+//name, location, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
+var ogre = new Enemy('ogre', 'ogre hils', 10, 2, 3, 35, 100, 10, club, 0.5)
+var orc = new Enemy('orc','the great expanse', 7, 4, 4, 25, 50, 20, sword, 0.7)
+var bandit = new Enemy('bandit', 'brigand backwood', 6, 5, 7, 20, 65, 40, bow, 0.65)
+
+var enemies = [ogre, orc, bandit]
+//var enemylocations = ['ogre hills', 'the great expanse']
+var enemiesIknow = [ogre, orc, bandit]
 var enemySel = ""
 
 
@@ -399,7 +412,10 @@ function playGame() {
 
 
 
-
+//enter location that has an enemy. Each location should have a var of which it contains not enemy havng locations. Chance that enemy attacks you or if they don't you can choose to attack them. Dex still determines initiative. Turn by turn goes by. When enemy die, they have a chance to drop loot, they give exp, they give gold.
+	
+//combat itself, they attack and have a chance to hit you and do damage, attacks can crit, add randomness
+	//skills, elemental damage, 
 
 	switch (action) {
 
