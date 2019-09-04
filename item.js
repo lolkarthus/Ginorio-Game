@@ -20,5 +20,8 @@ function newitem(name, location, damage, rarity, price, weight) {
 	} else if (rarity == 5) {
 		userrarity = "Legendary"
 	}
+	
+
+	
 	this.image = "Assets/Images/Items/" + userrarity + "/" + name + ".png"
 }

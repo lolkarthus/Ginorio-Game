@@ -13,6 +13,7 @@ var moral = 0
 var race
 var bg
 var klass
+var weight = 0
 
 //introbgmusic = new Audio('Assets/Music/the_road_home.mp3')
 //introbgmusic.addEventListener('ended', function() {
@@ -28,6 +29,7 @@ function printstats() {
 	console.log('str is ' + str)
 	console.log('dex is ' + dex)
 	console.log('vit is ' + vit)
+	console.log('lvl is ' + lvl)
 	console.log('money is ' + money)
 	console.log('race is ' + race)
 	console.log('background is ' + bg)
@@ -267,10 +269,16 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#iscorrect').fadeOut(1000)
 	$('#confirmchar').fadeOut(1000)
 	$('#frm').delay(1000).fadeIn(1000)
+	$('#locationbg').delay(1000).fadeIn(1000)
 	health = vit
 }
 
 
+
+
+//skills
+//combat
+//equipment
 
 
 
@@ -289,10 +297,17 @@ var pastLocation = "panterville"
 var sword = new newitem("sword", "rehmont", 5, 1, 30, 6)
 var bow = new newitem("bow", "faerie forest", 5, 1, 30, 4)
 var staff = new newitem("staff", "panterville", 5, 1, 30, 4)
+
 var club = new newitem("club", 0, 7, 1, 5, 10)
 var map = new newitem("map", 0, 0, 1, 20, 1)
+//var bed
+var health_potion = new newitem("health potion", 0, 0, 1, 15, 2)
+var mana_potion = new newitem("mana potion", 0, 0, 1, 15, 2)
+//var leather_armor
+//var chain_armor
+//var plate_armor
 
-var items = [sword, bow, staff, club, map]
+var items = [sword, bow, staff, club, map, health_potion, mana_potion]
 //var itemlocations = ['rehmont', 'ogre hills']
 
 var inventory = [map]
@@ -308,7 +323,7 @@ var item = ""
 
 
 //name, location, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
-var ogre = new Enemy('ogre', 'ogre hils', 10, 2, 3, 35, 100, 10, club, 0.5)
+var ogre = new Enemy('ogre', 'ogre hills', 10, 2, 3, 35, 100, 10, club, 0.5)
 var orc = new Enemy('orc','the great expanse', 7, 4, 4, 25, 50, 20, sword, 0.7)
 var bandit = new Enemy('bandit', 'brigand backwood', 6, 5, 7, 20, 65, 40, bow, 0.65)
 
@@ -317,7 +332,7 @@ var enemies = [ogre, orc, bandit]
 var enemiesIknow = [ogre, orc, bandit]
 var enemySel = ""
 
-
+var combat = false
 
 
 
@@ -355,7 +370,7 @@ function playGame() {
 	}
 
 	for (i = 0; i < itemsIknow.length; i++) {
-		if (playersInput.indexOf(itemsIknow[i]) !== -1) {
+		if (playersInput.indexOf(itemsIknow[i].name) !== -1) {
 			item = itemsIknow[i]
 			console.log("player's item: " + item)
 		}
@@ -434,20 +449,26 @@ function playGame() {
 
 		case "inventory":
 			console.log('inventory')
-			var str2 = ''
-			if (inventory.length == 0) {
-				str2 = 'nothing'
+			var str2 = []
+			var str3 = ""
+			for (i=0; i<inventory.length; i++) {
+				str2.push(inventory[i].name)
 			}
-			if (inventory.length == 1) {
-				str2 = inventory.join('')
+			if (str2.length == 0) {
+				str3 = 'nothing'
 			}
-			if (inventory.length == 2) {
-				str2 = inventory.join(' and ')
+			if (str2.length == 1) {
+				str3 = str2.join(' ')
 			}
-			if (inventory.length >= 3) {
-				str2 = inventory.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+			if (str2.length == 2) {
+				str3 = str2.join(' and ')
 			}
-			gameMessage = 'You have ' + str2 + '.'
+			if (str2.length >= 3) {
+				str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+			}
+			
+			
+			gameMessage = 'You have ' + str3 + '.'
 			break
 
 		case "take":
@@ -478,30 +499,25 @@ function playGame() {
 }
 
 
-
 function takeItem() {
-	var itemIndexNumber = items.indexOf(item)
-	console.log('madeit')
-	if (itemIndexNumber !== -1 && itemlocations[itemIndexNumber] === CurLocation) {
-		gameMessage = "You take " + item + "."
+	if (item.location === CurLocation) {
+		gameMessage = "You take " + item.name + "."
 		inventory.push(item)
-		items.splice(itemIndexNumber, 1)
-		itemlocations.splice(itemIndexNumber, 1)
-		console.log("World items: " + items)
-		console.log("Inventory items: " + inventory)
+		item.location = "inventory"
+		
 	} else {
 		gameMessage = "You can't do that."
 	}
 }
 
+
 function dropItem() {
 	if (inventory.length !== 0) {
-		var inventoryIndexNumber = inventory.indexOf(item)
-		if (inventoryIndexNumber !== -1) {
-			gameMessage = "You drop " + item + "."
-			items.push(inventory[inventoryIndexNumber])
-			itemlocations.push(CurLocation)
-			inventory.splice(inventoryIndexNumber, 1)
+		if (inventory.indexOf(item) !== -1) {
+			gameMessage = "You drop " + item.name + "."
+			item.location = CurLocation
+			inventory.splice(inventory.indexOf(item), 1)
+			
 		} else {
 			gameMessage = "You can't do that."
 		}
@@ -510,16 +526,17 @@ function dropItem() {
 	}
 }
 
+
 function useItem() {
-	var inventoryIndexNumber = inventory.indexOf(item)
-	if (inventoryIndexNumber === -1) {
-		gameMessage = "You don't have it."
+	if (inventory.indexOf(item) === -1) {
+		gameMessage = "You don't have " + item.name + "."
 	}
 	if (inventory.length === 0) {
 		gameMessage = "You don't have any items."
 	}
-	if (inventoryIndexNumber !== -1) {
-		switch (item) {
+	if (inventory.indexOf(item) !== -1) {
+		switch (item.name) {
+	
 			case "map":
 				console.log('You used ' + item)
 				$('.clickable').show()
@@ -527,15 +544,30 @@ function useItem() {
 				$('#map').show()
 				$('#frm').show()
 				document.getElementById('clickhere').click()
-
 				break
 
 			case "sword":
-				console.log('You used ' + item)
+				console.log('You used ' + item.name)
 				break
 
-			case "shield":
-				console.log('You used ' + item)
+			case "bow":
+				console.log('You used ' + item.name)
+				break
+				
+			case "staff":
+				console.log('You used ' + item.name)
+				break
+				
+			case "club":
+				console.log('You used ' + item.name)
+				break
+				
+			case "health_potion":
+				console.log('You used ' + item.name)
+				break
+				
+			case "mana_potion":
+				console.log('You used ' + item.name)
 				break
 
 		}
@@ -544,8 +576,17 @@ function useItem() {
 
 
 function go() {
+	var ambush = true
+	if (combat = true) {
+		enemySel = ''
+		$('#locationbg').fadeTo(500, 1)
+		$("#combatginorio").delay(500).fadeOut(500)
+		$("#combatenemy").delay(500).fadeOut(500)
+		combat = false
+	}
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
+		ambush = false
 	}
 	switch (mapLocation) {
 		case "riverrun":
@@ -622,6 +663,17 @@ function go() {
 
 		default:
 			gameMessage = "Location is unknown."
+			ambush = false
+	}
+	document.getElementById("locationbg").src = "Assets/Images/Locations/" + CurLocation + ".png"
+	document.getElementById("locationbg").alt = titleCase(CurLocation)
+	if (ambush == true) {
+		for (var i = 0; i < enemies.length; i++) {
+			if (CurLocation == enemies[i].location) {
+				enemySel = enemies[i]
+				commencecombat()
+			}
+		}
 	}
 }
 var goingtokill = false
@@ -728,11 +780,24 @@ function fight() {
 	}
 }
 
+function commencecombat() {
+	combat = true
+	$('#locationbg').fadeTo(500, 0.4)
+	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
+	$("#combatginorio").delay(500).fadeIn(500)
+	
+	document.getElementById("combatenemy").src = "Assets/Images/Enemies/" + enemySel.name + ".png"
+	document.getElementById("combatenemy").alt = enemySel.name
+	$("#combatenemy").delay(500).fadeIn(500)
+	gameMessage = "You were ambushed by a " + enemySel.name + "!"
+}
+
+
 function readytolvl(xp) {
 	var oldlvl = lvl
 		//need to rework lvl equation
 	lvl = Math.round(0.0303721 * Math.sqrt((xp - 300)) + 2.39352)
-	if (lvl != oldlvl) {
+	if (lvl == oldlvl + 1) {
 		return true
 	} else {
 		return false
@@ -742,7 +807,7 @@ function readytolvl(xp) {
 function render() {
 	addMessage(gameMessage)
 	moveplayer()
-
+	item = ''
 }
 
 
