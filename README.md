@@ -3,7 +3,10 @@ Welcome to Ginorio and Dragons! Ginorio and Dragons is an online text-based RPG.
 
 To see how the game looks currently, go here: https://lolkarthus.github.io/Ginorio-Game/
 
+Currently, we need extra artists for the 8-bit art style and musicians to produce the music and sound effects. Writers and editors would also be appreciated.
+
 TODO:
+Add music and sound effects: (intro song, song for each location, multiple combat songs, flame sound effect, button sound effect, game over sound effect, level up sound effect, pick up item effect, attack effect, drop item effect, misc.)
 Add actions to all the items
 Add magic system
 Implement weight system
