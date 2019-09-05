@@ -294,20 +294,30 @@ var pastLocation = "panterville"
 
 //name, location, damage, rarity, price, weight
 //rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
-var sword = new newitem("sword", "rehmont", 5, 1, 30, 6)
-var bow = new newitem("bow", "faerie forest", 5, 1, 30, 4)
-var staff = new newitem("staff", "panterville", 5, 1, 30, 4)
+var sword = new newitem(            "sword",             "rehmont",       5,  1, 30, 6)
+var club = new newitem(             "club",              0,               7,  1, 5,  10)
+var scimitar = new newitem(         "scimitar",          0,               10, 2, 50, 6)
+var upgraded_scimitar = new newitem("upgraded scimitar", 0,               12, 3, 60, 6)
+var mace = new newitem(             "mace",              0,               15, 3, 65, 10)
 
-var club = new newitem("club", 0, 7, 1, 5, 10)
-var map = new newitem("map", 0, 0, 1, 20, 1)
+var bow = new newitem(              "bow",               "faerie forest", 5,  1, 30, 4)
+
+var staff = new newitem(            "staff",             "panterville",   5,  1, 30, 4)
+
+
+var map = new newitem(              "map",               0,               0,  1, 20, 1)
 //var bed
-var health_potion = new newitem("health potion", 0, 0, 1, 15, 2)
-var mana_potion = new newitem("mana potion", 0, 0, 1, 15, 2)
+var small_health_potion = new newitem(  "small health potion", 0, 0, 1, 15, 2)
+var small_mana_potion = new newitem(      "small mana potion", 0, 0, 1, 15, 2)
+var medium_health_potion = new newitem("medium health potion", 0, 0, 2, 30, 3)
+var medium_mana_potion = new newitem(    "medium mana potion", 0, 0, 2, 30, 3)
+var large_health_potion = new newitem(  "large health potion", 0, 0, 3, 50, 4)
+var large_mana_potion = new newitem(      "large mana potion", 0, 0, 3, 50, 4)
 //var leather_armor
 //var chain_armor
 //var plate_armor
 
-var items = [sword, bow, staff, club, map, health_potion, mana_potion]
+var items = [sword, club, scimitar, bow, staff, map, small_health_potion, small_mana_potion, medium_health_potion, medium_mana_potion, large_health_potion, large_mana_potion]
 //var itemlocations = ['rehmont', 'ogre hills']
 
 var inventory = [map]
@@ -323,16 +333,15 @@ var item = ""
 
 
 //name, location, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
-var ogre = new Enemy('ogre', 'ogre hills', 10, 2, 3, 35, 100, 10, club, 0.5)
-var orc = new Enemy('orc','the great expanse', 7, 4, 4, 25, 50, 20, sword, 0.7)
-var bandit = new Enemy('bandit', 'brigand backwood', 6, 5, 7, 20, 65, 40, bow, 0.65)
+var ogre = new Enemy(  'ogre',   'ogre hills',        10, 2, 3, 35, 100, 10, club,  0.5)
+var orc = new Enemy(   'orc',    'the great expanse', 7,  4, 4, 25, 50,  20, sword, 0.7)
+var bandit = new Enemy('bandit', 'brigand backwood',  6,  5, 7, 20, 65,  40, bow,   0.65)
 
 var enemies = [ogre, orc, bandit]
-//var enemylocations = ['ogre hills', 'the great expanse']
-var enemiesIknow = [ogre, orc, bandit]
+var enemiesIknow = enemies
 var enemySel = ""
 
-var combat = false
+var incombat = false
 
 
 
@@ -577,12 +586,12 @@ function useItem() {
 
 function go() {
 	var ambush = true
-	if (combat = true) {
+	if (incombat = true) {
 		enemySel = ''
 		$('#locationbg').fadeTo(500, 1)
 		$("#combatginorio").delay(500).fadeOut(500)
 		$("#combatenemy").delay(500).fadeOut(500)
-		combat = false
+		incombat = false
 	}
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
@@ -781,7 +790,7 @@ function fight() {
 }
 
 function commencecombat() {
-	combat = true
+	incombat = true
 	$('#locationbg').fadeTo(500, 0.4)
 	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
 	$("#combatginorio").delay(500).fadeIn(500)
