@@ -332,14 +332,15 @@ var itemsIknow = items
 var item = ""
 
 
-//name, location, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
-var ogre = new Enemy(  'ogre',   'ogre hills',        10, 2, 3, 35, 100, 10, club,  0.5)
-var orc = new Enemy(   'orc',    'the great expanse', 7,  4, 4, 25, 50,  20, sword, 0.7)
-var bandit = new Enemy('bandit', 'brigand backwood',  6,  5, 7, 20, 65,  40, bow,   0.65)
+//name, location, locationprob, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
+var ogre = new Enemy(  'ogre',   ['ogre hills', 'the great expanse'], [1, 0.5], 10, 2, 3, 35, 100, 10, club,  0.5)
+var orc = new Enemy(   'orc',    ['the great expanse'],               [1],      7,  4, 4, 25, 50,  20, sword, 0.7)
+var bandit = new Enemy('bandit', ['brigand backwood'],                [1],      6,  5, 7, 20, 65,  40, bow,   0.65)
 
 var enemies = [ogre, orc, bandit]
 var enemiesIknow = enemies
 var enemySel = ""
+var selectedenemies = []
 
 var combat = false
 
@@ -570,14 +571,7 @@ function useItem() {
 			case "club":
 				console.log('You used ' + item.name)
 				break
-				
-			case "health_potion":
-				console.log('You used ' + item.name)
-				break
-				
-			case "mana_potion":
-				console.log('You used ' + item.name)
-				break
+
 
 		}
 	}
@@ -597,25 +591,31 @@ function go() {
 	}
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
+		render()
 		ambush = false
+		return
 	}
 	switch (mapLocation) {
 		case "riverrun":
 			pastLocation = CurLocation
 			CurLocation = "riverrun"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			render()
 			break
 
 		case "panterville":
 			pastLocation = CurLocation
 			CurLocation = "panterville"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			render()
+
 			break
 
 		case "rehmont":
 			pastLocation = CurLocation
 			CurLocation = "rehmont"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			render()
 			break
 
 		case "the great expanse":
@@ -628,12 +628,14 @@ function go() {
 			pastLocation = CurLocation
 			CurLocation = "ogre hills"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			render()
 			break
 
 		case "faerie forest":
 			pastLocation = CurLocation
 			CurLocation = "faerie forest"
 			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
+			render()
 			break
 
 		case "ulidin":
@@ -679,14 +681,41 @@ function go() {
 	document.getElementById("locationbg").src = "Assets/Images/Locations/" + CurLocation + ".png"
 	document.getElementById("locationbg").alt = titleCase(CurLocation)
 	if (ambush == true) {
+		var possible_enemies = []
+		
+		
 		for (var i = 0; i < enemies.length; i++) {
-			if (CurLocation == enemies[i].location) {
-				enemySel = enemies[i]
-				commencecombat()
-			}
+			for (var j = 0; j < enemies[i].location.length; j++) {
+				if (enemies[i].location[j].indexOf(CurLocation) != -1) {
+					possible_enemies.push(enemies[i])
+				}
+			}	
 		}
+		var probabilities = []
+		var probindices = 0
+		for (var l = 0; l < possible_enemies.length; l++) {
+			probindices = possible_enemies[l].location.indexOf(CurLocation)
+			probabilities.push(possible_enemies[l].locationprob[probindices])
+		}
+		var numberofenemies = getRandomIntInclusive(1,3)
+		for (var n = 0; n < numberofenemies; n++) {
+			selectedenemies.push(chance.weighted(possible_enemies, probabilities))
+		}
+		
+		commencecombat()	
 	}
 }
+
+function isinlocation(en) {
+	for (var i = 0; i < en.location.length; i++) {
+	if (en.location[i] == CurLocation) {
+		return en
+		break
+	} else return "nope"
+	}
+}
+
+
 var goingtokill = false
 
 function youattack() {
@@ -797,12 +826,34 @@ function commencecombat() {
 	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
 	$("#combatginorio").delay(500).fadeIn(500)
 	
-	document.getElementById("combatenemy").src = "Assets/Images/Enemies/" + enemySel.name + ".png"
+	for (var i = 0; i < selectedenemies.length; i++) {
+		document.getElementById("combatenemy" + [i+1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
+		document.getElementById("combatenemy" + [i+1]).alt = selectedenemies[i].name
+		$("#combatenemy" + [i+1]).delay(500).fadeIn(500)
+	}
+	/*document.getElementById("combatenemy").src = "Assets/Images/Enemies/" + enemySel.name + ".png"
 	document.getElementById("combatenemy").alt = enemySel.name
 	$("#combatenemy1").delay(500).fadeIn(500)
 	$("#combatenemy2").delay(500).fadeIn(500)
 	$("#combatenemy3").delay(500).fadeIn(500)
-	gameMessage = "You were ambushed by a " + enemySel.name + "!"
+	gameMessage = "You were ambushed by " + selectedenemies[i].name + "!"*/
+	var str2 = []
+	var str3 = ""
+	for (i=0; i<selectedenemies.length; i++) {
+		str2.push(selectedenemies[i].name)
+	}
+	if (str2.length == 1) {
+		str3 = str2.join(' ')
+	}
+	if (str2.length == 2) {
+		str3 = str2.join(' and ')
+	}
+	if (str2.length >= 3) {
+		str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+	}
+
+
+	gameMessage = 'You were ambushed by ' + str3 + '!'
 }
 
 

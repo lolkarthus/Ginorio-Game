@@ -1,6 +1,7 @@
-function Enemy(name, location, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance) {
+function Enemy(name, location, locationprob, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance) {
 	this.name = name
 	this.location = location
+	this.locationprob = locationprob
 	if (location == 0) {
 		this.location = null
 	}
