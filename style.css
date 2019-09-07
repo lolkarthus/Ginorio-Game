@@ -322,29 +322,34 @@ footer {
 	max-height: 100%;
 	display: none;
 }
+.wrapper {
+	display: inline-block;
+	position: relative;
+}
 #locationbg {
-	height: auto;
 	width: 100%;
+	max-width: 100%;
 	margin-top: -50px;
 	display: none;
 	position: relative;
+	height: auto;
+	
 }
 #combatginorio {
 	display: none;
 	position: absolute;
-	top: 0px;
-	margin-top: 18%;
-	margin-left: 20%;
+	top: 30%;
+	right: 65%;
 	width: 22%;
+	max-width: 22%;
 	height: auto;
-	
 }
-#combatenemy {
+
+#combatenemy1, #combatenemy2, #combatenemy3 {
 	display: none;
 	position: absolute;
-	top: 0px;
-	margin-left: 54%;
-	margin-top: 13%;
+	top: 28%;
+	right: 20%;
 	width: 23%;
 	height: auto;
 }

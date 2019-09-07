@@ -341,7 +341,7 @@ var enemies = [ogre, orc, bandit]
 var enemiesIknow = enemies
 var enemySel = ""
 
-var incombat = false
+var combat = false
 
 
 
@@ -586,12 +586,14 @@ function useItem() {
 
 function go() {
 	var ambush = true
-	if (incombat = true) {
+	if (combat = true) {
 		enemySel = ''
 		$('#locationbg').fadeTo(500, 1)
 		$("#combatginorio").delay(500).fadeOut(500)
-		$("#combatenemy").delay(500).fadeOut(500)
-		incombat = false
+		$("#combatenemy1").delay(500).fadeOut(500)
+		$("#combatenemy2").delay(500).fadeOut(500)
+		$("#combatenemy3").delay(500).fadeOut(500)
+		combat = false
 	}
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
@@ -790,14 +792,16 @@ function fight() {
 }
 
 function commencecombat() {
-	incombat = true
+	combat = true
 	$('#locationbg').fadeTo(500, 0.4)
 	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
 	$("#combatginorio").delay(500).fadeIn(500)
 	
 	document.getElementById("combatenemy").src = "Assets/Images/Enemies/" + enemySel.name + ".png"
 	document.getElementById("combatenemy").alt = enemySel.name
-	$("#combatenemy").delay(500).fadeIn(500)
+	$("#combatenemy1").delay(500).fadeIn(500)
+	$("#combatenemy2").delay(500).fadeIn(500)
+	$("#combatenemy3").delay(500).fadeIn(500)
 	gameMessage = "You were ambushed by a " + enemySel.name + "!"
 }
 
