@@ -338,7 +338,7 @@ footer {
 #combatginorio {
 	display: none;
 	position: absolute;
-	top: 30%;
+	top: 33%;
 	right: 65%;
 	width: 22%;
 	max-width: 22%;
@@ -357,9 +357,75 @@ footer {
 }
 #combatenemy2 {
 	top: 28%;
-	right: 20%;
+	right: 18%;
 }
 #combatenemy3 {
 	top: 25%;
-	right: 8%;
+	right: 6%;
+}
+.progressBarContainer {
+	width: 18%;
+	top: 24%;
+	right: 66%;
+	height: 3%;
+	border: 1px white solid;
+	position: absolute;
+	display: none;
+}
+.progressBar {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+#healthContainer {
+	top: 21%;
+}
+#expContainer {
+	top: 27%;
+}
+#health, #en1health, #en2health, #en3health {
+	background-color: red;
+}
+#mana {
+	background-color: blue;
+}
+#exp {
+	background-color: green;
+}
+
+#en1healthContainer {
+	top: 32%;
+	right: 37%;
+	width: 12%;
+}
+#en2healthContainer {
+	top: 29%;
+	right: 24%;
+	width: 12%;
+}
+#en3healthContainer {
+	top: 26%;
+	right: 11%;
+	width: 12%;
+}
+#enemy1item, #enemy2item, #enemy3item {
+	display: none;
+	position: absolute;
+	width: 22%;
+	max-width: 22%;
+	height: auto;
+	-webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+#enemy1item {
+	top: 31%;
+	right: 32%; 
+}
+#enemy2item {
+	top: 28%;
+	right: 18%;
+}
+#enemy3item {
+	top: 25%;
+	right: 6%;
 }

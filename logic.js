@@ -825,18 +825,20 @@ function commencecombat() {
 	$('#locationbg').fadeTo(500, 0.4)
 	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
 	$("#combatginorio").delay(500).fadeIn(500)
+	$("#healthContainer").delay(500).fadeIn(500)
+	$("#manaContainer").delay(500).fadeIn(500)
+	$("#expContainer").delay(500).fadeIn(500)
 	
 	for (var i = 0; i < selectedenemies.length; i++) {
 		document.getElementById("combatenemy" + [i+1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
 		document.getElementById("combatenemy" + [i+1]).alt = selectedenemies[i].name
+		document.getElementById("enemy" + [i+1] + "item").src = "Assets/Images/Items/Holdables/" + selectedenemies[i].itemdropped.name + ".png"
+		document.getElementById("enemy" + [i+1] + "item").alt = selectedenemies[i].itemdropped.name
 		$("#combatenemy" + [i+1]).delay(500).fadeIn(500)
+		$("#enemy" + [i+1] + "item").delay(500).fadeIn(500)
+		$("#en" + [i+1] + "healthContainer").delay(500).fadeIn(500)
 	}
-	/*document.getElementById("combatenemy").src = "Assets/Images/Enemies/" + enemySel.name + ".png"
-	document.getElementById("combatenemy").alt = enemySel.name
-	$("#combatenemy1").delay(500).fadeIn(500)
-	$("#combatenemy2").delay(500).fadeIn(500)
-	$("#combatenemy3").delay(500).fadeIn(500)
-	gameMessage = "You were ambushed by " + selectedenemies[i].name + "!"*/
+	
 	var str2 = []
 	var str3 = ""
 	for (i=0; i<selectedenemies.length; i++) {
@@ -851,8 +853,6 @@ function commencecombat() {
 	if (str2.length >= 3) {
 		str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
 	}
-
-
 	gameMessage = 'You were ambushed by ' + str3 + '!'
 }
 
