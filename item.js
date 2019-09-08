@@ -1,4 +1,4 @@
-function newitem(name, location, damage, rarity, price, weight) {
+function newitem(name, location, damage, rarity, price, weight, equippable, description) {
 	this.name = name
 	this.location = location
 	if (location == 0 ) {
@@ -8,6 +8,8 @@ function newitem(name, location, damage, rarity, price, weight) {
 	this.rarity = rarity
 	this.price = price
 	this.weight = weight
+	this.equippable = equippable
+	this.description = description
 	var userrarity
 	if (rarity == 1) {
 		userrarity = "Common"

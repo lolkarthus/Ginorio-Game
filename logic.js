@@ -15,6 +15,64 @@ var bg
 var klass
 var weight = 0
 
+var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
+var CurLocation = 'panterville'
+var mapLocation = ""
+var pastLocation = "panterville"
+
+
+//name, location, damage, rarity, price, weight, equippable, description
+//rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
+var sword = new newitem("sword", "rehmont", 5, 1, 30, 6, true)
+var club = new newitem("club", 0, 7, 1, 5, 10, true)
+var scimitar = new newitem("scimitar", 0, 10, 2, 50, 6, true)
+var upgraded_scimitar = new newitem("upgraded scimitar", 0, 12, 3, 60, 6, true)
+var mace = new newitem("mace", 0, 15, 3, 65, 10, true)
+
+var bow = new newitem("bow", "faerie forest", 5, 1, 30, 4, true)
+
+var staff = new newitem("staff", "panterville", 5, 1, 30, 4, true)
+
+
+var map = new newitem("map", 0, 0, 1, 20, 1, false)
+	//var bed
+var small_health_potion = new newitem("small health potion", 0, 0, 1, 15, 2, false)
+var small_mana_potion = new newitem("small mana potion", 0, 0, 1, 15, 2, false)
+var medium_health_potion = new newitem("medium health potion", 0, 0, 2, 30, 3, false)
+var medium_mana_potion = new newitem("medium mana potion", 0, 0, 2, 30, 3, false)
+var large_health_potion = new newitem("large health potion", 0, 0, 3, 50, 4, false)
+var large_mana_potion = new newitem("large mana potion", 0, 0, 3, 50, 4, false)
+	//var leather_armor
+	//var chain_armor
+	//var plate_armor
+
+var items = [sword, club, scimitar, bow, staff, map, small_health_potion, small_mana_potion, medium_health_potion, medium_mana_potion, large_health_potion, large_mana_potion]
+	//var itemlocations = ['rehmont', 'ogre hills']
+var inventory = [map]
+
+var playersInput = ""
+var gameMessage = ""
+	// Array of actions the game knows and a var for the current action
+var actionsIknow = ['help', 'attack', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect']
+var action = ""
+
+var itemsIknow = items
+var item = ""
+var equipped
+
+//name, location, locationprob, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
+var ogre = new Enemy('ogre', ['ogre hills', 'the great expanse'], [1, 0.5], 10, 2, 3, 35, 100, 10, club, 0.5)
+var orc = new Enemy('orc', ['the great expanse'], [1], 7, 4, 4, 25, 50, 20, sword, 0.7)
+var bandit = new Enemy('bandit', ['brigand backwood'], [1], 6, 5, 7, 20, 65, 40, bow, 0.65)
+
+var enemies = [ogre, orc, bandit]
+var enemiesIknow = enemies
+var enemySel = ""
+var selectedenemies = []
+
+var combat = false
+
+
 //introbgmusic = new Audio('Assets/Music/the_road_home.mp3')
 //introbgmusic.addEventListener('ended', function() {
 //   this.currentTime = 0;
@@ -210,15 +268,18 @@ document.getElementById('confirmclass').onclick = function replacef() {
 	if (klass == 'warrior') {
 		vit = vit + 2
 		str++
-		//add items
+		inventory.push(sword)
+		equipped = sword
 	}
 	if (klass == "ranger") {
 		dex = dex + 2
-			//add items
+		inventory.push(bow)
+		equipped = bow
 	}
 	if (klass == "mage") {
 		int = int + 2
-			//add items
+		inventory.push(staff)
+		equipped = staff
 	}
 
 	printstats()
@@ -244,6 +305,8 @@ document.getElementById('restart').onclick = function replaceg() {
 	cha = 5
 	vit = 20
 	money = 0
+	inventory = []
+	equipped = ''
 	$('#restart').fadeOut(1000)
 	$('#identification').fadeOut(1000)
 	$('#iscorrect').fadeOut(1000)
@@ -272,79 +335,6 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#locationbg').delay(1000).fadeIn(1000)
 	health = vit
 }
-
-
-
-
-//skills
-//combat
-//equipment
-
-
-
-
-
-
-
-var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
-var CurLocation = 'panterville'
-var mapLocation = ""
-var pastLocation = "panterville"
-
-
-//name, location, damage, rarity, price, weight
-//rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
-var sword = new newitem(            "sword",             "rehmont",       5,  1, 30, 6)
-var club = new newitem(             "club",              0,               7,  1, 5,  10)
-var scimitar = new newitem(         "scimitar",          0,               10, 2, 50, 6)
-var upgraded_scimitar = new newitem("upgraded scimitar", 0,               12, 3, 60, 6)
-var mace = new newitem(             "mace",              0,               15, 3, 65, 10)
-
-var bow = new newitem(              "bow",               "faerie forest", 5,  1, 30, 4)
-
-var staff = new newitem(            "staff",             "panterville",   5,  1, 30, 4)
-
-
-var map = new newitem(              "map",               0,               0,  1, 20, 1)
-//var bed
-var small_health_potion = new newitem(  "small health potion", 0, 0, 1, 15, 2)
-var small_mana_potion = new newitem(      "small mana potion", 0, 0, 1, 15, 2)
-var medium_health_potion = new newitem("medium health potion", 0, 0, 2, 30, 3)
-var medium_mana_potion = new newitem(    "medium mana potion", 0, 0, 2, 30, 3)
-var large_health_potion = new newitem(  "large health potion", 0, 0, 3, 50, 4)
-var large_mana_potion = new newitem(      "large mana potion", 0, 0, 3, 50, 4)
-//var leather_armor
-//var chain_armor
-//var plate_armor
-
-var items = [sword, club, scimitar, bow, staff, map, small_health_potion, small_mana_potion, medium_health_potion, medium_mana_potion, large_health_potion, large_mana_potion]
-//var itemlocations = ['rehmont', 'ogre hills']
-
-var inventory = [map]
-
-var playersInput = ""
-var gameMessage = ""
-	// Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'fight', 'inventory', 'go', 'use', 'take', 'drop', 'where']
-var action = ""
-
-var itemsIknow = items
-var item = ""
-
-
-//name, location, locationprob, str, int, dex, vit, expgiven, moneygiven, itemdropped, dropchance
-var ogre = new Enemy(  'ogre',   ['ogre hills', 'the great expanse'], [1, 0.5], 10, 2, 3, 35, 100, 10, club,  0.5)
-var orc = new Enemy(   'orc',    ['the great expanse'],               [1],      7,  4, 4, 25, 50,  20, sword, 0.7)
-var bandit = new Enemy('bandit', ['brigand backwood'],                [1],      6,  5, 7, 20, 65,  40, bow,   0.65)
-
-var enemies = [ogre, orc, bandit]
-var enemiesIknow = enemies
-var enemySel = ""
-var selectedenemies = []
-
-var combat = false
-
-
 
 
 
@@ -434,12 +424,7 @@ function playGame() {
 
 
 
-
-
-
-//enter location that has an enemy. Each location should have a var of which it contains not enemy havng locations. Chance that enemy attacks you or if they don't you can choose to attack them. Dex still determines initiative. Turn by turn goes by. When enemy die, they have a chance to drop loot, they give exp, they give gold.
-	
-//combat itself, they attack and have a chance to hit you and do damage, attacks can crit, add randomness
+	//combat itself, they attack and have a chance to hit you and do damage, attacks can crit, add randomness
 	//skills, elemental damage, 
 
 	switch (action) {
@@ -452,16 +437,16 @@ function playGame() {
 			break
 
 
-		case "fight":
-			console.log('fight')
-			fight()
+		case "attack":
+			console.log('attack')
+			attack()
 			break
 
 		case "inventory":
 			console.log('inventory')
 			var str2 = []
 			var str3 = ""
-			for (i=0; i<inventory.length; i++) {
+			for (i = 0; i < inventory.length; i++) {
 				str2.push(inventory[i].name)
 			}
 			if (str2.length == 0) {
@@ -476,8 +461,8 @@ function playGame() {
 			if (str2.length >= 3) {
 				str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
 			}
-			
-			
+
+
 			gameMessage = 'You have ' + str3 + '.'
 			break
 
@@ -501,6 +486,29 @@ function playGame() {
 			gameMessage = "You are at " + titleCase(CurLocation) + "."
 			break
 
+		case 'equip':
+			if (inventory.indexOf(item) !== -1) {
+				if (item.equippable == true) {
+					equipped = item
+					document.getElementById('equippeditem').src = "Assets/Images/Items/Holdables/" + equipped.name + ".png"
+					document.getElementById('equippeditem').alt = equipped.name
+					gameMessage = "You've equipped " + item.name + "."
+				} else {
+					gameMessage = titleCase(item.name) + " is not able to be equipped."
+				}
+			} else {
+				gameMessage = "You don't have " + item.name + "."
+			}
+			break
+
+		case 'inspect':
+			if (inventory.indexOf(item) !== -1) {
+				gameMessage = item.description
+			} {
+				gameMessage = "You don't have " + item.name + "."
+			}
+			break
+
 		default:
 			gameMessage = "Command not valid. Type help."
 	}
@@ -514,7 +522,7 @@ function takeItem() {
 		gameMessage = "You take " + item.name + "."
 		inventory.push(item)
 		item.location = "inventory"
-		
+
 	} else {
 		gameMessage = "You can't do that."
 	}
@@ -527,7 +535,7 @@ function dropItem() {
 			gameMessage = "You drop " + item.name + "."
 			item.location = CurLocation
 			inventory.splice(inventory.indexOf(item), 1)
-			
+
 		} else {
 			gameMessage = "You can't do that."
 		}
@@ -546,7 +554,7 @@ function useItem() {
 	}
 	if (inventory.indexOf(item) !== -1) {
 		switch (item.name) {
-	
+
 			case "map":
 				console.log('You used ' + item)
 				$('.clickable').show()
@@ -563,11 +571,11 @@ function useItem() {
 			case "bow":
 				console.log('You used ' + item.name)
 				break
-				
+
 			case "staff":
 				console.log('You used ' + item.name)
 				break
-				
+
 			case "club":
 				console.log('You used ' + item.name)
 				break
@@ -582,11 +590,28 @@ function go() {
 	var ambush = true
 	if (combat = true) {
 		enemySel = ''
+		selectedenemies = []
 		$('#locationbg').fadeTo(500, 1)
-		$("#combatginorio").delay(500).fadeOut(500)
-		$("#combatenemy1").delay(500).fadeOut(500)
-		$("#combatenemy2").delay(500).fadeOut(500)
-		$("#combatenemy3").delay(500).fadeOut(500)
+		$("#combatginorio").fadeOut(500)
+		$("#equippeditem").fadeOut(500)
+		$("#arrow").fadeOut()
+		
+		$("#combatenemy1").fadeOut(500)
+		$("#combatenemy2").fadeOut(500)
+		$("#combatenemy3").fadeOut(500)
+
+		$("#enemy1item").fadeOut(500)
+		$("#enemy2item").fadeOut(500)
+		$("#enemy3item").fadeOut(500)
+
+		$("#en1healthContainer").fadeOut(500)
+		$("#en2healthContainer").fadeOut(500)
+		$("#en3healthContainer").fadeOut(500)
+
+		$("#healthContainer").fadeOut(500)
+		$("#manaContainer").fadeOut(500)
+		$("#expContainer").fadeOut(500)
+
 		combat = false
 	}
 	if (mapLocation == CurLocation) {
@@ -680,16 +705,17 @@ function go() {
 	}
 	document.getElementById("locationbg").src = "Assets/Images/Locations/" + CurLocation + ".png"
 	document.getElementById("locationbg").alt = titleCase(CurLocation)
+
 	if (ambush == true) {
 		var possible_enemies = []
-		
-		
+
+
 		for (var i = 0; i < enemies.length; i++) {
 			for (var j = 0; j < enemies[i].location.length; j++) {
 				if (enemies[i].location[j].indexOf(CurLocation) != -1) {
 					possible_enemies.push(enemies[i])
 				}
-			}	
+			}
 		}
 		var probabilities = []
 		var probindices = 0
@@ -697,26 +723,33 @@ function go() {
 			probindices = possible_enemies[l].location.indexOf(CurLocation)
 			probabilities.push(possible_enemies[l].locationprob[probindices])
 		}
-		var numberofenemies = getRandomIntInclusive(1,3)
+		var numberofenemies = getRandomIntInclusive(1, 3)
 		for (var n = 0; n < numberofenemies; n++) {
 			selectedenemies.push(chance.weighted(possible_enemies, probabilities))
 		}
-		
-		commencecombat()	
+
+		commencecombat()
+		var str2 = []
+		var str3 = ""
+		for (i = 0; i < selectedenemies.length; i++) {
+			str2.push(selectedenemies[i].name)
+		}
+		if (str2.length == 1) {
+			str3 = str2.join(' ')
+		}
+		if (str2.length == 2) {
+			str3 = str2.join(' and ')
+		}
+		if (str2.length >= 3) {
+			str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
+		}
+		gameMessage = 'You were ambushed by ' + str3 + '!'
+
 	}
 }
 
-function isinlocation(en) {
-	for (var i = 0; i < en.location.length; i++) {
-	if (en.location[i] == CurLocation) {
-		return en
-		break
-	} else return "nope"
-	}
-}
 
-
-var goingtokill = false
+/*var goingtokill = false
 
 function youattack() {
 	var random = getRandomIntInclusive(1, 100)
@@ -819,41 +852,121 @@ function fight() {
 		youattack()
 	}
 }
+*/
+
+function selectenemy() {
+	if (selectedenemies.length == 1) {
+		return selectedenemies[0]
+	} else {
+		document.getElementById('arrow').style.top = "20%"
+		document.getElementById('arrow').style.right = "41%"
+		$("#arrow").show()
+		
+		var position = 1
+
+		$(document).on('keydown', function (event) {
+
+			var LEFT = 37
+			var RIGHT = 39
+			var ENTER = 13
+
+			if (selectedenemies.length != 1) {
+				if (selectedenemies.length == 2) {
+					if (event.keyCode == RIGHT) {
+						if (position == 1) {
+							position++
+							var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+							var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+							document.getElementById('arrow').style.top = resulta.toString() + "%"
+							document.getElementById('arrow').style.right = resultb.toString() + "%"
+						} else {
+							position = 1
+							document.getElementById('arrow').style.top = "20%"
+							document.getElementById('arrow').style.right = "41%"
+						}
+					}
+
+					if (event.keyCode == LEFT) {
+						if (position == 2) {
+							position--
+							var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+							var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+							document.getElementById('arrow').style.top = resultc.toString() + "%"
+							document.getElementById('arrow').style.right = resultd.toString() + "%"
+						} else {
+							position = 2
+							document.getElementById('arrow').style.top = "17%"
+							document.getElementById('arrow').style.right = "28%"
+						}
+					}
+				}
+				if (selectedenemies.length == 3) {
+					if (event.keyCode == RIGHT) {
+						if (position == 1 || position == 2) {
+							position++
+							var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+							var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+							document.getElementById('arrow').style.top = resulta.toString() + "%"
+							document.getElementById('arrow').style.right = resultb.toString() + "%"
+						} else {
+							position = 1
+							document.getElementById('arrow').style.top = "20%"
+							document.getElementById('arrow').style.right = "41%"
+						}
+					}
+
+					if (event.keyCode == LEFT) {
+						if (position == 2 || position == 3) {
+							position--
+							var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+							var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+							document.getElementById('arrow').style.top = resultc.toString() + "%"
+							document.getElementById('arrow').style.right = resultd.toString() + "%"
+						} else {
+							position = 3
+							document.getElementById('arrow').style.top = "14%"
+							document.getElementById('arrow').style.right = "15%"
+						}
+					}
+				}
+			}
+
+
+
+			if (event.keyCode == ENTER) {
+				enemySel = selectedenemies[position - 1]
+				return enemySel
+			}
+
+		})
+	}
+}
+function attack() {
+	if (combat == true) {
+		selectenemy()
+	}
+}
 
 function commencecombat() {
 	combat = true
 	$('#locationbg').fadeTo(500, 0.4)
-	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_" + titleCase(klass) + "_Ginorio.png"
+	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Ginorio.png"
 	$("#combatginorio").delay(500).fadeIn(500)
+	$("#equippeditem").delay(500).fadeIn(500)
 	$("#healthContainer").delay(500).fadeIn(500)
 	$("#manaContainer").delay(500).fadeIn(500)
 	$("#expContainer").delay(500).fadeIn(500)
-	
+
 	for (var i = 0; i < selectedenemies.length; i++) {
-		document.getElementById("combatenemy" + [i+1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
-		document.getElementById("combatenemy" + [i+1]).alt = selectedenemies[i].name
-		document.getElementById("enemy" + [i+1] + "item").src = "Assets/Images/Items/Holdables/" + selectedenemies[i].itemdropped.name + ".png"
-		document.getElementById("enemy" + [i+1] + "item").alt = selectedenemies[i].itemdropped.name
-		$("#combatenemy" + [i+1]).delay(500).fadeIn(500)
-		$("#enemy" + [i+1] + "item").delay(500).fadeIn(500)
-		$("#en" + [i+1] + "healthContainer").delay(500).fadeIn(500)
+		document.getElementById("combatenemy" + [i + 1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
+		document.getElementById("combatenemy" + [i + 1]).alt = selectedenemies[i].name
+		document.getElementById("enemy" + [i + 1] + "item").src = "Assets/Images/Items/Holdables/" + selectedenemies[i].itemdropped.name + ".png"
+		document.getElementById("enemy" + [i + 1] + "item").alt = selectedenemies[i].itemdropped.name
+		$("#combatenemy" + [i + 1]).delay(500).fadeIn(500)
+		$("#enemy" + [i + 1] + "item").delay(500).fadeIn(500)
+		$("#en" + [i + 1] + "healthContainer").delay(500).fadeIn(500)
 	}
-	
-	var str2 = []
-	var str3 = ""
-	for (i=0; i<selectedenemies.length; i++) {
-		str2.push(selectedenemies[i].name)
-	}
-	if (str2.length == 1) {
-		str3 = str2.join(' ')
-	}
-	if (str2.length == 2) {
-		str3 = str2.join(' and ')
-	}
-	if (str2.length >= 3) {
-		str3 = str2.join(', ').split('').reverse().join('').replace(',', 'dna ,').split('').reverse().join('')
-	}
-	gameMessage = 'You were ambushed by ' + str3 + '!'
+
 }
 
 

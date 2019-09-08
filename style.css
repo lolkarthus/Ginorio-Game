@@ -1,11 +1,9 @@
 @font-face {
-    font-family: 'enchanted_landregular';
-    src: url('enchanted_land-webfont.woff2') format('woff2'),
-         url('enchanted_land-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'enchanted_landregular';
+	src: url('enchanted_land-webfont.woff2') format('woff2'),  url('enchanted_land-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
 	color: antiquewhite;
-
 }
 html {
 	height: 100%;
@@ -59,7 +57,6 @@ body::after {
 	margin-top: 500px;
 	outline: none;
 }
-
 .button:hover, td:hover {
 	background-color: #3c1f1f;
 }
@@ -87,7 +84,6 @@ body::after {
 	height: auto;
 	max-width: 100%;
 }
-
 #intro {
 	width: 500px;
 	color: antiquewhite;
@@ -117,10 +113,10 @@ body::after {
 	margin-top: 50px;
 }
 #restart {
- left: 47%;
+	left: 47%;
 }
 #confirmchar {
- left: 53%;
+	left: 53%;
 }
 #intronext1 {
 	display: none;
@@ -136,20 +132,17 @@ body::after {
 #elfrace {
 	width: 33.3%;
 }
-
-
 footer {
 	text-align: center;
 	color: antiquewhite;
 	clear: both;
-    position: absolute;
-   	bottom: 0;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	height: 25px;
 	font-size: 20px;
 	z-index: 1;
 }
-
 #frm {
 	display: none;
 }
@@ -168,7 +161,7 @@ footer {
 	bottom: 15px;
 	position: absolute;
 	outline: none;
-	cursor:auto
+	cursor: auto
 }
 #message {
 	width: 100%;
@@ -178,7 +171,7 @@ footer {
 	color: antiquewhite;
 	height: 40px;
 	position: absolute;
-   	bottom: 0;
+	bottom: 0;
 	right: 0px;
 	margin-top: -15px;
 	padding-top: 10px;
@@ -193,27 +186,24 @@ footer {
 #sendbutton {
 	display: none;
 }
-
 .imageDemoBlock img {
-    max-width:200px;
+	max-width: 200px;
 }
-
 .fullscreen-mode {
-    position:absolute;
-    left:0;
- 	top: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
 	padding-top: 9%;
-    z-index:1000;
-    width:100%;
-    height:81.9%;   
-    line-height:100%;
-    background:rgba(0,0,0,0.5);    
+	z-index: 1000;
+	width: 100%;
+	height: 81.9%;
+	line-height: 100%;
+	background: rgba(0,0,0,0.5);
 }
-
 .fullscreen-mode img {
-    max-width:100%;
-    margin:0 auto;
-    display: block;
+	max-width: 100%;
+	margin: 0 auto;
+	display: block;
 }
 .clickable {
 	z-index: 2000;
@@ -223,7 +213,7 @@ footer {
 .clickable:hover {
 	background-color: rgba(255,255,255,0.5);
 }
-#panterville{
+#panterville {
 	height: 40px;
 	width: 40px;
 	left: 50.8vw;
@@ -235,9 +225,8 @@ footer {
 	left: 53.3%;
 	width: 2%;
 	height: 3%;
-	
 }
-#thegreatexpanse{
+#thegreatexpanse {
 	height: 60px;
 	width: 120px;
 	left: 50vw;
@@ -250,7 +239,7 @@ footer {
 	left: 50vw;
 	top: 33vh;
 }
-#faerieforest{
+#faerieforest {
 	height: 60px;
 	width: 100px;
 	left: 46vw;
@@ -300,14 +289,13 @@ footer {
 	left: 46vw;
 	top: 72vh;
 }
-
 #player {
 	z-index: 2001;
 	position: absolute;
 	height: auto;
 	max-width: 2%;
 	display: none;
-    transition: 1s ease-in-out;
+	transition: 1s ease-in-out;
 }
 #playerimg {
 	max-width: 100%;
@@ -333,7 +321,6 @@ footer {
 	display: none;
 	position: relative;
 	height: auto;
-	
 }
 #combatginorio {
 	display: none;
@@ -344,7 +331,15 @@ footer {
 	max-width: 22%;
 	height: auto;
 }
-
+#equippeditem {
+	display: none;
+	position: absolute;
+	width: 22%;
+	max-width: 22%;
+	height: auto;
+	top: 33%;
+	right: 65%;
+}
 #combatenemy1, #combatenemy2, #combatenemy3 {
 	display: none;
 	position: absolute;
@@ -392,7 +387,6 @@ footer {
 #exp {
 	background-color: green;
 }
-
 #en1healthContainer {
 	top: 32%;
 	right: 37%;
@@ -415,11 +409,11 @@ footer {
 	max-width: 22%;
 	height: auto;
 	-webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+	transform: scaleX(-1);
 }
 #enemy1item {
 	top: 31%;
-	right: 32%; 
+	right: 32%;
 }
 #enemy2item {
 	top: 28%;
@@ -428,4 +422,13 @@ footer {
 #enemy3item {
 	top: 25%;
 	right: 6%;
+}
+#arrow {
+	display: none;
+	position: absolute;
+	width: 4%;
+	max-width: 4%;
+	height: auto;
+	top: 20%;
+	right: 41%;
 }
