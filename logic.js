@@ -532,6 +532,9 @@ function takeItem() {
 function dropItem() {
 	if (inventory.length !== 0) {
 		if (inventory.indexOf(item) !== -1) {
+			if (item == equipped) {
+				equipped = ""
+			}
 			gameMessage = "You drop " + item.name + "."
 			item.location = CurLocation
 			inventory.splice(inventory.indexOf(item), 1)
@@ -595,7 +598,7 @@ function go() {
 		$("#combatginorio").fadeOut(500)
 		$("#equippeditem").fadeOut(500)
 		$("#arrow").fadeOut()
-		
+
 		$("#combatenemy1").fadeOut(500)
 		$("#combatenemy2").fadeOut(500)
 		$("#combatenemy3").fadeOut(500)
@@ -853,97 +856,166 @@ function fight() {
 	}
 }
 */
+var position = 1
 
 function selectenemy() {
-	if (selectedenemies.length == 1) {
-		return selectedenemies[0]
-	} else {
-		document.getElementById('arrow').style.top = "20%"
-		document.getElementById('arrow').style.right = "41%"
-		$("#arrow").show()
-		
-		var position = 1
+	document.getElementById('arrow').style.top = "20%"
+	document.getElementById('arrow').style.right = "41%"
+	$("#arrow").show()
 
-		$(document).on('keydown', function (event) {
 
-			var LEFT = 37
-			var RIGHT = 39
-			var ENTER = 13
+	$(document).on('keydown', function (event) {
 
-			if (selectedenemies.length != 1) {
-				if (selectedenemies.length == 2) {
-					if (event.keyCode == RIGHT) {
-						if (position == 1) {
-							position++
-							var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
-							var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
-							document.getElementById('arrow').style.top = resulta.toString() + "%"
-							document.getElementById('arrow').style.right = resultb.toString() + "%"
-						} else {
-							position = 1
-							document.getElementById('arrow').style.top = "20%"
-							document.getElementById('arrow').style.right = "41%"
-						}
-					}
+		var LEFT = 37
+		var RIGHT = 39
+		var ENTER = 13
 
-					if (event.keyCode == LEFT) {
-						if (position == 2) {
-							position--
-							var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
-							var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
-							document.getElementById('arrow').style.top = resultc.toString() + "%"
-							document.getElementById('arrow').style.right = resultd.toString() + "%"
-						} else {
-							position = 2
-							document.getElementById('arrow').style.top = "17%"
-							document.getElementById('arrow').style.right = "28%"
-						}
+		if (selectedenemies.length != 1) {
+			if (selectedenemies.length == 2) {
+				if (event.keyCode == RIGHT) {
+					if (position == 1) {
+						position++
+						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+						document.getElementById('arrow').style.top = resulta.toString() + "%"
+						document.getElementById('arrow').style.right = resultb.toString() + "%"
+					} else {
+						position = 1
+						document.getElementById('arrow').style.top = "20%"
+						document.getElementById('arrow').style.right = "41%"
 					}
 				}
-				if (selectedenemies.length == 3) {
-					if (event.keyCode == RIGHT) {
-						if (position == 1 || position == 2) {
-							position++
-							var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
-							var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
-							document.getElementById('arrow').style.top = resulta.toString() + "%"
-							document.getElementById('arrow').style.right = resultb.toString() + "%"
-						} else {
-							position = 1
-							document.getElementById('arrow').style.top = "20%"
-							document.getElementById('arrow').style.right = "41%"
-						}
-					}
 
-					if (event.keyCode == LEFT) {
-						if (position == 2 || position == 3) {
-							position--
-							var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
-							var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
-							document.getElementById('arrow').style.top = resultc.toString() + "%"
-							document.getElementById('arrow').style.right = resultd.toString() + "%"
-						} else {
-							position = 3
-							document.getElementById('arrow').style.top = "14%"
-							document.getElementById('arrow').style.right = "15%"
-						}
+				if (event.keyCode == LEFT) {
+					if (position == 2) {
+						position--
+						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+						document.getElementById('arrow').style.top = resultc.toString() + "%"
+						document.getElementById('arrow').style.right = resultd.toString() + "%"
+					} else {
+						position = 2
+						document.getElementById('arrow').style.top = "17%"
+						document.getElementById('arrow').style.right = "28%"
 					}
 				}
 			}
+			if (selectedenemies.length == 3) {
+				if (event.keyCode == RIGHT) {
+					if (position == 1 || position == 2) {
+						position++
+						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+						document.getElementById('arrow').style.top = resulta.toString() + "%"
+						document.getElementById('arrow').style.right = resultb.toString() + "%"
+					} else {
+						position = 1
+						document.getElementById('arrow').style.top = "20%"
+						document.getElementById('arrow').style.right = "41%"
+					}
+				}
 
-
-
+				if (event.keyCode == LEFT) {
+					if (position == 2 || position == 3) {
+						position--
+						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+						document.getElementById('arrow').style.top = resultc.toString() + "%"
+						document.getElementById('arrow').style.right = resultd.toString() + "%"
+					} else {
+						position = 3
+						document.getElementById('arrow').style.top = "14%"
+						document.getElementById('arrow').style.right = "15%"
+					}
+				}
+			}
 			if (event.keyCode == ENTER) {
 				enemySel = selectedenemies[position - 1]
-				return enemySel
+				$('#arrow').hide()
+				dmg()
 			}
+		} else {
+			if (event.keyCode == ENTER) {
+				enemySel = selectedenemies[position - 1]
+				$('#arrow').hide()
+				dmg()
+			}
+		}
+	})
+}
+var turn = false
 
-		})
+function turnorder() {
+	if (enemySel == "") {
+		enemySel = selectedenemies[0]
+	}
+	if (dex >= enemySel.dex) {
+		turn = true
+	} else {
+		turn = false
 	}
 }
+
+function dmg() {
+	var damage = Math.round(equipped.damage + str / 2)
+	if (getRandomIntInclusive(1, 20) == 20) {
+		damage = damage * 2
+	}
+	enemySel.health -= damage
+	if (enemySel.health <= 0) {
+		enemySel.health = 0
+		document.getElementById('en' + position + 'health').style.width = "0%"
+		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
+		render()
+		gameMessage = "You have slain " + enemySel.name + "."
+		console.log('enemy is dead')
+	} else if (enemySel.health > 0) {
+		document.getElementById('en' + position + 'health').style.width = Math.round(((damage / enemySel.health) * 100)).toString() + "%"
+		render()
+		console.log('dealing ' + damage)
+		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
+		hurt()
+	}
+	
+	
+}
+
+function hurt() {
+	var damage = Math.round(enemySel.itemdropped.damage + enemySel.str / 2)
+	if (getRandomIntInclusive(1, 20) == 20) {
+		damage = damage * 2
+	}
+	health -= damage
+	if (health <= 0) {
+		health = 0 
+		document.getElementById('health').style.width = "0%"
+		gameMessage = "The " + enemySel.name + " dealt " + damage + " damage. You have " + health + " health remaining."
+		render()
+		gameMessage = "You have died. Game over!"
+		console.log('dead')
+	} else if (health > 0) {
+		document.getElementById('health').style.width = Math.round(((damage / health) * 100)).toString() + "%"
+		console.log('taking ' + damage)
+		gameMessage = "The " + enemySel.name + " dealt " + damage + " damage. You have " + health + " health remaining."
+	}
+	
+	turn = true
+}
+
 function attack() {
 	if (combat == true) {
-		selectenemy()
+
+		if (turn == true) {
+			console.log('your turn')
+			selectenemy()
+			gameMessage = "Selecting..."
+			
+
+		} else if (turn == false) {
+			console.log('enemy turn')
+			hurt()
+		}
+
 	}
 }
 
@@ -967,6 +1039,8 @@ function commencecombat() {
 		$("#en" + [i + 1] + "healthContainer").delay(500).fadeIn(500)
 	}
 
+
+	turnorder()
 }
 
 

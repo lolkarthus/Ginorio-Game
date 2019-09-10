@@ -380,12 +380,15 @@ footer {
 }
 #health, #en1health, #en2health, #en3health {
 	background-color: red;
+	width: 100%;
 }
 #mana {
 	background-color: blue;
+	width: 100%;
 }
 #exp {
 	background-color: green;
+	width: 0%;
 }
 #en1healthContainer {
 	top: 32%;
