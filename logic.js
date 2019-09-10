@@ -970,7 +970,7 @@ function dmg() {
 		gameMessage = "You have slain " + enemySel.name + "."
 		console.log('enemy is dead')
 	} else if (enemySel.health > 0) {
-		document.getElementById('en' + position + 'health').style.width = Math.round(((damage / enemySel.health) * 100)).toString() + "%"
+		document.getElementById('en' + position + 'health').style.width = Math.round(((enemySel.health / enemySel.vit) * 100)).toString() + "%"
 		render()
 		console.log('dealing ' + damage)
 		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
@@ -981,7 +981,7 @@ function dmg() {
 }
 
 function hurt() {
-	var damage = Math.round(enemySel.itemdropped.damage + enemySel.str / 2)
+	var damage = Math.round(enemySel.str / 2)
 	if (getRandomIntInclusive(1, 20) == 20) {
 		damage = damage * 2
 	}
@@ -994,7 +994,7 @@ function hurt() {
 		gameMessage = "You have died. Game over!"
 		console.log('dead')
 	} else if (health > 0) {
-		document.getElementById('health').style.width = Math.round(((damage / health) * 100)).toString() + "%"
+		document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
 		console.log('taking ' + damage)
 		gameMessage = "The " + enemySel.name + " dealt " + damage + " damage. You have " + health + " health remaining."
 	}
