@@ -14,6 +14,8 @@ var race
 var bg
 var klass
 var weight = 0
+var maxmana = 20
+var mana = maxmana
 
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
 var CurLocation = 'panterville'
@@ -53,7 +55,7 @@ var inventory = [map]
 var playersInput = ""
 var gameMessage = ""
 	// Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'attack', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect', 'suicide']
+var actionsIknow = ['help', 'attack', 'firebolt', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect', 'suicide']
 var action = ""
 
 var itemsIknow = items
@@ -442,6 +444,11 @@ function playGame() {
 			console.log('attack')
 			attack()
 			break
+		case "firebolt":
+			console.log('fire bolt')
+			firebolt()
+			break
+
 
 		case "inventory":
 			console.log('inventory')
@@ -935,7 +942,16 @@ function turnorder() {
 		turn = false
 	}
 }
-
+function firebolt() {
+	if (combat == true) {
+		if (turn == true) {
+			console.log('your turn')
+			mselectenemy()
+			gameMessage = "Selecting..."
+			mana -= 10
+			}
+		}
+	}
 function attack() {
 	if (combat == true) {
 
@@ -949,8 +965,94 @@ function attack() {
 			console.log('enemy turn')
 			hurt()
 		}
+}
+}
+var position = 1
 
-	}
+function mselectenemy() {
+	document.getElementById('arrow').style.top = "20%"
+	document.getElementById('arrow').style.right = "41%"
+	$("#arrow").show()
+
+
+	$(document).on('keydown', function (event) {
+
+		var LEFT = 37
+		var RIGHT = 39
+		var ENTER = 13
+
+		if (selectedenemies.length != 1) {
+			if (selectedenemies.length == 2) {
+				if (event.keyCode == RIGHT) {
+					if (position == 1) {
+						position++
+						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+						document.getElementById('arrow').style.top = resulta.toString() + "%"
+						document.getElementById('arrow').style.right = resultb.toString() + "%"
+					} else {
+						position = 1
+						document.getElementById('arrow').style.top = "20%"
+						document.getElementById('arrow').style.right = "41%"
+					}
+				}
+
+				if (event.keyCode == LEFT) {
+					if (position == 2) {
+						position--
+						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+						document.getElementById('arrow').style.top = resultc.toString() + "%"
+						document.getElementById('arrow').style.right = resultd.toString() + "%"
+					} else {
+						position = 2
+						document.getElementById('arrow').style.top = "17%"
+						document.getElementById('arrow').style.right = "28%"
+					}
+				}
+			}
+			if (selectedenemies.length == 3) {
+				if (event.keyCode == RIGHT) {
+					if (position == 1 || position == 2) {
+						position++
+						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
+						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
+						document.getElementById('arrow').style.top = resulta.toString() + "%"
+						document.getElementById('arrow').style.right = resultb.toString() + "%"
+					} else {
+						position = 1
+						document.getElementById('arrow').style.top = "20%"
+						document.getElementById('arrow').style.right = "41%"
+					}
+				}
+
+				if (event.keyCode == LEFT) {
+					if (position == 2 || position == 3) {
+						position--
+						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
+						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
+						document.getElementById('arrow').style.top = resultc.toString() + "%"
+						document.getElementById('arrow').style.right = resultd.toString() + "%"
+					} else {
+						position = 3
+						document.getElementById('arrow').style.top = "14%"
+						document.getElementById('arrow').style.right = "15%"
+					}
+				}
+			}
+			if (event.keyCode == ENTER) {
+				enemySel = selectedenemies[position - 1]
+				$('#arrow').hide()
+				mdmg()
+			}
+		} else {
+			if (event.keyCode == ENTER) {
+				enemySel = selectedenemies[position - 1]
+				$('#arrow').hide()
+				mdmg()
+			}
+		}
+	})
 }
 
 var position = 1
@@ -1040,7 +1142,27 @@ function selectenemy() {
 		}
 	})
 }
-
+function mdmg() {
+	var damage = Math.round(equipped.damage + int / 2)
+	if (getRandomIntInclusive(1, 20) == 20) {
+		damage = damage * 2
+	}
+	enemySel.health -= damage
+	if (enemySel.health <= 0) {
+		enemySel.health = 0
+		document.getElementById('en' + position + 'health').style.width = "0%"
+		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has 0 health remaining."
+		render()
+		gameMessage = "You have slain " + enemySel.name + "."
+		console.log('enemy is dead')
+	} else if (enemySel.health > 0) {
+		document.getElementById('en' + position + 'health').style.width = Math.round(((enemySel.health / enemySel.vit) * 100)).toString() + "%"
+		render()
+		console.log('dealing ' + damage)
+		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
+		hurt()
+	}
+}
 function dmg() {
 	var damage = Math.round(equipped.damage + str / 2)
 	if (getRandomIntInclusive(1, 20) == 20) {
@@ -1096,6 +1218,7 @@ function readytolvl(xp) {
 
 function render() {
 	document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
+	document.getElementById('mana').style.width = Math.round(((mana / maxmana) * 100)).toString() + "%"
 	addMessage(gameMessage)
 	moveplayer()
 	//item = ''
