@@ -21,9 +21,9 @@ var mapLocation = ""
 var pastLocation = "panterville"
 
 
-//name, location, damage, rarity, price, weight, equippable, description
+//name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq
 //rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
-var sword = new newitem("sword", "rehmont", 5, 1, 30, 6, true)
+var sword = new newitem("sword", "rehmont", 5, 1, 30, 6, true, "This is a sword what else do you want?", 1, 1, 1, 1)
 var club = new newitem("club", 0, 7, 1, 5, 10, true)
 var scimitar = new newitem("scimitar", 0, 10, 2, 50, 6, true)
 var upgraded_scimitar = new newitem("upgraded scimitar", 0, 12, 3, 60, 6, true)
@@ -53,7 +53,7 @@ var inventory = [map]
 var playersInput = ""
 var gameMessage = ""
 	// Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'attack', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect']
+var actionsIknow = ['help', 'attack', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect', 'suicide']
 var action = ""
 
 var itemsIknow = items
@@ -64,6 +64,7 @@ var equipped
 var ogre = new Enemy('ogre', ['ogre hills', 'the great expanse'], [1, 0.5], 10, 2, 3, 35, 100, 10, club, 0.5)
 var orc = new Enemy('orc', ['the great expanse'], [1], 7, 4, 4, 25, 50, 20, sword, 0.7)
 var bandit = new Enemy('bandit', ['brigand backwood'], [1], 6, 5, 7, 20, 65, 40, bow, 0.65)
+var dragon = new Enemy('dragon', ['the scorched mountains'], [1], 100, 100000, 1000, 10, 1000000, 99999999, 0, 0)
 
 var enemies = [ogre, orc, bandit]
 var enemiesIknow = enemies
@@ -488,13 +489,14 @@ function playGame() {
 
 		case 'equip':
 			if (inventory.indexOf(item) !== -1) {
-				if (item.equippable == true) {
+				if (item.equippable == true && str >= item.strreq && int >= item.intreq && dex >= item.dexrreq && lvl >= item.lvlreq) {
 					equipped = item
 					document.getElementById('equippeditem').src = "Assets/Images/Items/Holdables/" + equipped.name + ".png"
 					document.getElementById('equippeditem').alt = equipped.name
 					gameMessage = "You've equipped " + item.name + "."
 				} else {
-					gameMessage = titleCase(item.name) + " is not able to be equipped."
+					gameMessage = titleCase(item.name) + " is not able to be equipped." 
+
 				}
 			} else {
 				gameMessage = "You don't have " + item.name + "."
@@ -504,10 +506,18 @@ function playGame() {
 		case 'inspect':
 			if (inventory.indexOf(item) !== -1) {
 				gameMessage = item.description
-			} {
+				render()
+				gameMessage = "It has " + item.damage + " damage, weighs " + item.weight + "lbs, and is " + item.userrarity + "."
+				render()
+				gameMessage = "This item requires " + item.strreq + " strength, " + item.intreq + " intelligence, " + item.dexreq + " dexterity, and " + item.lvlreq + " levels."
+			} else {
 				gameMessage = "You don't have " + item.name + "."
 			}
 			break
+		case 'suicide':
+			health = 0
+					break
+
 
 		default:
 			gameMessage = "Command not valid. Type help."
@@ -521,7 +531,7 @@ function takeItem() {
 	if (item.location === CurLocation) {
 		gameMessage = "You take " + item.name + "."
 		inventory.push(item)
-		item.location = "inventory"
+		 item.location = "inventory"
 
 	} else {
 		gameMessage = "You can't do that."
@@ -582,8 +592,38 @@ function useItem() {
 			case "club":
 				console.log('You used ' + item.name)
 				break
+			
+			/*Back off this is my code
+						-Eric*/
+			case "small health potion":
+				if (health !== vit) {
+					health += (0.15 * vit)
+					if	(health > vit) {
+						health = vit
+					}
+					console.log('You used ' + item.name)
+										}
+				 break
 
+			case "medium health potion":
+				if (health !== vit) {
+					health += (0.3 * vit)
+					if	(health > vit) {
+						health = vit
+					}
+					console.log('You used ' + item.name)
+										}
+				 break
 
+			 case "large health potion":
+			 	if (health !== vit) {
+					health += (0.5 * vit)
+					if	(health > vit) {
+						health = vit
+					}
+					console.log('You used ' + item.name)
+										}
+				 break
 		}
 	}
 }
@@ -711,7 +751,6 @@ function go() {
 
 	if (ambush == true) {
 		var possible_enemies = []
-
 
 		for (var i = 0; i < enemies.length; i++) {
 			for (var j = 0; j < enemies[i].location.length; j++) {
@@ -856,6 +895,64 @@ function fight() {
 	}
 }
 */
+
+
+
+
+function commencecombat() {
+	combat = true
+	$('#locationbg').fadeTo(500, 0.4)
+	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Ginorio.png"
+	$("#combatginorio").delay(500).fadeIn(500)
+	$("#equippeditem").delay(500).fadeIn(500)
+	$("#healthContainer").delay(500).fadeIn(500)
+	$("#manaContainer").delay(500).fadeIn(500)
+	$("#expContainer").delay(500).fadeIn(500)
+
+	for (var i = 0; i < selectedenemies.length; i++) {
+		document.getElementById("combatenemy" + [i + 1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
+		document.getElementById("combatenemy" + [i + 1]).alt = selectedenemies[i].name
+		document.getElementById("enemy" + [i + 1] + "item").src = "Assets/Images/Items/Holdables/" + selectedenemies[i].itemdropped.name + ".png"
+		document.getElementById("enemy" + [i + 1] + "item").alt = selectedenemies[i].itemdropped.name
+		$("#combatenemy" + [i + 1]).delay(500).fadeIn(500)
+		$("#enemy" + [i + 1] + "item").delay(500).fadeIn(500)
+		$("#en" + [i + 1] + "healthContainer").delay(500).fadeIn(500)
+	}
+
+
+	turnorder()
+}
+
+var turn = false
+
+function turnorder() {
+	if (enemySel == "") {
+		enemySel = selectedenemies[0]
+	}
+	if (dex >= enemySel.dex) {
+		turn = true
+	} else {
+		turn = false
+	}
+}
+
+function attack() {
+	if (combat == true) {
+
+		if (turn == true) {
+			console.log('your turn')
+			selectenemy()
+			gameMessage = "Selecting..."
+			
+
+		} else if (turn == false) {
+			console.log('enemy turn')
+			hurt()
+		}
+
+	}
+}
+
 var position = 1
 
 function selectenemy() {
@@ -943,18 +1040,6 @@ function selectenemy() {
 		}
 	})
 }
-var turn = false
-
-function turnorder() {
-	if (enemySel == "") {
-		enemySel = selectedenemies[0]
-	}
-	if (dex >= enemySel.dex) {
-		turn = true
-	} else {
-		turn = false
-	}
-}
 
 function dmg() {
 	var damage = Math.round(equipped.damage + str / 2)
@@ -965,7 +1050,7 @@ function dmg() {
 	if (enemySel.health <= 0) {
 		enemySel.health = 0
 		document.getElementById('en' + position + 'health').style.width = "0%"
-		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
+		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has 0 health remaining."
 		render()
 		gameMessage = "You have slain " + enemySel.name + "."
 		console.log('enemy is dead')
@@ -976,8 +1061,6 @@ function dmg() {
 		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
 		hurt()
 	}
-	
-	
 }
 
 function hurt() {
@@ -994,56 +1077,12 @@ function hurt() {
 		gameMessage = "You have died. Game over!"
 		console.log('dead')
 	} else if (health > 0) {
-		document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
-		console.log('taking ' + damage)
+			console.log('taking ' + damage)
 		gameMessage = "The " + enemySel.name + " dealt " + damage + " damage. You have " + health + " health remaining."
 	}
 	
 	turn = true
 }
-
-function attack() {
-	if (combat == true) {
-
-		if (turn == true) {
-			console.log('your turn')
-			selectenemy()
-			gameMessage = "Selecting..."
-			
-
-		} else if (turn == false) {
-			console.log('enemy turn')
-			hurt()
-		}
-
-	}
-}
-
-function commencecombat() {
-	combat = true
-	$('#locationbg').fadeTo(500, 0.4)
-	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Ginorio.png"
-	$("#combatginorio").delay(500).fadeIn(500)
-	$("#equippeditem").delay(500).fadeIn(500)
-	$("#healthContainer").delay(500).fadeIn(500)
-	$("#manaContainer").delay(500).fadeIn(500)
-	$("#expContainer").delay(500).fadeIn(500)
-
-	for (var i = 0; i < selectedenemies.length; i++) {
-		document.getElementById("combatenemy" + [i + 1]).src = "Assets/Images/Enemies/" + selectedenemies[i].name + ".png"
-		document.getElementById("combatenemy" + [i + 1]).alt = selectedenemies[i].name
-		document.getElementById("enemy" + [i + 1] + "item").src = "Assets/Images/Items/Holdables/" + selectedenemies[i].itemdropped.name + ".png"
-		document.getElementById("enemy" + [i + 1] + "item").alt = selectedenemies[i].itemdropped.name
-		$("#combatenemy" + [i + 1]).delay(500).fadeIn(500)
-		$("#enemy" + [i + 1] + "item").delay(500).fadeIn(500)
-		$("#en" + [i + 1] + "healthContainer").delay(500).fadeIn(500)
-	}
-
-
-	turnorder()
-}
-
-
 function readytolvl(xp) {
 	var oldlvl = lvl
 		//need to rework lvl equation
@@ -1056,11 +1095,11 @@ function readytolvl(xp) {
 }
 
 function render() {
+	document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
 	addMessage(gameMessage)
 	moveplayer()
-	item = ''
+	//item = ''
 }
-
 
 function titleCase(str) {
 	var splitStr = str.toLowerCase().split(' ')

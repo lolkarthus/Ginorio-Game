@@ -1,4 +1,4 @@
-function newitem(name, location, damage, rarity, price, weight, equippable, description) {
+function newitem(name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq) {
 	this.name = name
 	this.location = location
 	if (location == 0 ) {
@@ -10,20 +10,24 @@ function newitem(name, location, damage, rarity, price, weight, equippable, desc
 	this.weight = weight
 	this.equippable = equippable
 	this.description = description
-	var userrarity
+	this.lvlreq = lvlreq
+	this.strreq = strreq
+	this.intreq = intreq
+	this.dexreq = dexreq
+
 	if (rarity == 1) {
-		userrarity = "Common"
+		this.userrarity = "common"
 	} else if (rarity == 2) {
-		userrarity = "Uncommon"
+		this.userrarity = "uncommon"
 	} else if (rarity == 3) {
-		userrarity = "Rare"
+		this.userrarity = "rare"
 	} else if (rarity == 4) {
-		userrarity = "Epic"
+		this.userrarity = "epic"
 	} else if (rarity == 5) {
-		userrarity = "Legendary"
+		this.userrarity = "legendary"
 	}
 	
 
 	
-	this.image = "Assets/Images/Items/" + userrarity + "/" + name + ".png"
+	this.image = "Assets/Images/Items/" + this.userrarity + "/" + name + ".png"
 }
