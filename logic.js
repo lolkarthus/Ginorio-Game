@@ -14,8 +14,8 @@ var race
 var bg
 var klass
 var weight = 0
-var maxmana = 20
-var mana = maxmana
+var maxMana = 20 + (5 * int)
+var mana = maxMana
 
 
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
@@ -24,8 +24,8 @@ var mapLocation = ""
 var pastLocation = "panterville"
 
 // New magic spells 
-// name, magnitude, effect, hit chance, mana cost, lvl requirement, intelligence requirement
-var firebolt = new newMagic("firebolt", 10, ["damage", "burn"], .8, 5,  ) 
+// name, magnitude, effect, hitChance, manaCost, lvlReq, intReq
+var firebolt = new newMagic("firebolt", [10, 3], ["damage", "burn"], [0.8, 5], 10, 1, 1) 
 
 //name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq
 //rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
@@ -59,7 +59,7 @@ var inventory = [map]
 var playersInput = ""
 var gameMessage = ""
 	// Array of actions the game knows and a var for the current action
-var actionsIknow = ['help', 'attack', 'firebolt', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect', 'suicide']
+var actionsIknow = ['help', 'attack', 'inventory', 'go', 'use', 'take', 'drop', 'where', 'equip', 'inspect']
 var action = ""
 
 var itemsIknow = items
@@ -77,7 +77,6 @@ var enemiesIknow = enemies
 var enemySel = ""
 var selectedenemies = []
 
-var combat = false
 
 
 //introbgmusic = new Audio('Assets/Music/the_road_home.mp3')
@@ -448,12 +447,7 @@ function playGame() {
 			console.log('attack')
 			attack()
 			break
-		case "firebolt":
-			console.log('fire bolt')
-			firebolt()
-			break
-
-
+			
 		case "inventory":
 			console.log('inventory')
 			var str2 = []
@@ -525,10 +519,6 @@ function playGame() {
 				gameMessage = "You don't have " + item.name + "."
 			}
 			break
-		case 'suicide':
-			health = 0
-					break
-
 
 		default:
 			gameMessage = "Command not valid. Type help."
@@ -760,7 +750,7 @@ function go() {
 	document.getElementById("locationbg").src = "Assets/Images/Locations/" + CurLocation + ".png"
 	document.getElementById("locationbg").alt = titleCase(CurLocation)
 
-	if (ambush == true) {
+	/*if (ambush == true) {
 		var possible_enemies = []
 
 		for (var i = 0; i < enemies.length; i++) {
@@ -799,6 +789,7 @@ function go() {
 		gameMessage = 'You were ambushed by ' + str3 + '!'
 
 	}
+	*/
 }
 
 
@@ -907,10 +898,7 @@ function fight() {
 }
 */
 
-
-
-
-function commencecombat() {
+/*function commencecombat() {
 	combat = true
 	$('#locationbg').fadeTo(500, 0.4)
 	document.getElementById("combatginorio").src = "Assets/Images/" + titleCase(race) + "/" + titleCase(bg) + "_Ginorio.png"
@@ -946,16 +934,7 @@ function turnorder() {
 		turn = false
 	}
 }
-function firebolt() {
-	if (combat == true) {
-		if (turn == true) {
-			console.log('your turn')
-			mselectenemy()
-			gameMessage = "Selecting..."
-			mana -= 10
-			}
-		}
-	}
+
 function attack() {
 	if (combat == true) {
 
@@ -971,93 +950,7 @@ function attack() {
 		}
 }
 }
-var position = 1
 
-function mselectenemy() {
-	document.getElementById('arrow').style.top = "20%"
-	document.getElementById('arrow').style.right = "41%"
-	$("#arrow").show()
-
-
-	$(document).on('keydown', function (event) {
-
-		var LEFT = 37
-		var RIGHT = 39
-		var ENTER = 13
-
-		if (selectedenemies.length != 1) {
-			if (selectedenemies.length == 2) {
-				if (event.keyCode == RIGHT) {
-					if (position == 1) {
-						position++
-						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
-						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
-						document.getElementById('arrow').style.top = resulta.toString() + "%"
-						document.getElementById('arrow').style.right = resultb.toString() + "%"
-					} else {
-						position = 1
-						document.getElementById('arrow').style.top = "20%"
-						document.getElementById('arrow').style.right = "41%"
-					}
-				}
-
-				if (event.keyCode == LEFT) {
-					if (position == 2) {
-						position--
-						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
-						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
-						document.getElementById('arrow').style.top = resultc.toString() + "%"
-						document.getElementById('arrow').style.right = resultd.toString() + "%"
-					} else {
-						position = 2
-						document.getElementById('arrow').style.top = "17%"
-						document.getElementById('arrow').style.right = "28%"
-					}
-				}
-			}
-			if (selectedenemies.length == 3) {
-				if (event.keyCode == RIGHT) {
-					if (position == 1 || position == 2) {
-						position++
-						var resulta = parseInt(document.getElementById('arrow').style.top, 10) - 3
-						var resultb = parseInt(document.getElementById('arrow').style.right, 10) - 13
-						document.getElementById('arrow').style.top = resulta.toString() + "%"
-						document.getElementById('arrow').style.right = resultb.toString() + "%"
-					} else {
-						position = 1
-						document.getElementById('arrow').style.top = "20%"
-						document.getElementById('arrow').style.right = "41%"
-					}
-				}
-
-				if (event.keyCode == LEFT) {
-					if (position == 2 || position == 3) {
-						position--
-						var resultc = parseInt(document.getElementById('arrow').style.top, 10) + 3
-						var resultd = parseInt(document.getElementById('arrow').style.right, 10) + 13
-						document.getElementById('arrow').style.top = resultc.toString() + "%"
-						document.getElementById('arrow').style.right = resultd.toString() + "%"
-					} else {
-						position = 3
-						document.getElementById('arrow').style.top = "14%"
-						document.getElementById('arrow').style.right = "15%"
-					}
-				}
-			}
-			if (event.keyCode == ENTER) {
-				enemySel = selectedenemies[position - 1]
-				$('#arrow').hide()
-				mdmg()
-			}
-		} else {
-			if (event.keyCode == ENTER) {
-				enemySel = selectedenemies[position - 1]
-				$('#arrow').hide()
-				mdmg()
-			}
-		}
-	})
-}
 
 var position = 1
 
@@ -1146,27 +1039,8 @@ function selectenemy() {
 		}
 	})
 }
-function mdmg() {
-	var damage = Math.round(equipped.damage + int / 2)
-	if (getRandomIntInclusive(1, 20) == 20) {
-		damage = damage * 2
-	}
-	enemySel.health -= damage
-	if (enemySel.health <= 0) {
-		enemySel.health = 0
-		document.getElementById('en' + position + 'health').style.width = "0%"
-		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has 0 health remaining."
-		render()
-		gameMessage = "You have slain " + enemySel.name + "."
-		console.log('enemy is dead')
-	} else if (enemySel.health > 0) {
-		document.getElementById('en' + position + 'health').style.width = Math.round(((enemySel.health / enemySel.vit) * 100)).toString() + "%"
-		render()
-		console.log('dealing ' + damage)
-		gameMessage = "You damaged the " + enemySel.name + " by " + damage + "." + " It has " + enemySel.health + " health remaining."
-		hurt()
-	}
-}
+
+
 function dmg() {
 	var damage = Math.round(equipped.damage + str / 2)
 	if (getRandomIntInclusive(1, 20) == 20) {
@@ -1219,10 +1093,11 @@ function readytolvl(xp) {
 		return false
 	}
 }
+*/
 
 function render() {
 	document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
-	document.getElementById('mana').style.width = Math.round(((mana / maxmana) * 100)).toString() + "%"
+	document.getElementById('mana').style.width = Math.round(((mana / maxMana) * 100)).toString() + "%"
 	addMessage(gameMessage)
 	moveplayer()
 	//item = ''
@@ -1314,9 +1189,6 @@ function moveplayer() {
 			break
 	}
 }
-
-
-
 
 
 

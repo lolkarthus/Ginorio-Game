@@ -4,6 +4,6 @@ function newMagic(name, magnitude, effect, hitChance, manaCost, lvlReq, intReq) 
 	this.effect = effect
 	this.hitChance = hitChance
 	this.manaCost = manaCost
-	this.lvlReq = lvlreq 
-	this.intReq = intreq 
+	this.lvlReq = lvlReq 
+	this.intReq = intReq 
 }
