@@ -17,11 +17,15 @@ var weight = 0
 var maxmana = 20
 var mana = maxmana
 
+
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
 var CurLocation = 'panterville'
 var mapLocation = ""
 var pastLocation = "panterville"
 
+// New magic spells 
+// name, magnitude, effect, hit chance, mana cost, lvl requirement, intelligence requirement
+var firebolt = new newMagic("firebolt", 10, ["damage", "burn"], .8, 5,  ) 
 
 //name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq
 //rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
