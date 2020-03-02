@@ -1,4 +1,4 @@
-function newSkill(name, magnitude, effect, hitChance, coolDown, lvlReq, strReq, dexReq) {
+function newSkill(name, magnitude, effect, hitChance, coolDown, lvlReq, strReq, dexReq, klass) {
 	this.name = name
 	this.magnitude = magnitude
 	this.effect = effect
@@ -7,4 +7,5 @@ function newSkill(name, magnitude, effect, hitChance, coolDown, lvlReq, strReq, 
 	this.lvlReq = lvlReq 
 	this.strReq = strReq
 	this.dexReq = dexReq
+	this.class = klass
 }

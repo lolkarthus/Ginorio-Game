@@ -16,6 +16,7 @@ var klass
 var weight = 0
 var maxMana = 20 + (5 * int)
 var mana = maxMana
+var manaRecharge = 2 * int
 
 
 var locationsIknow = ["panterville", "rehmont", "the great expanse", "ogre hills", "faerie forest", "ulidin", "riverrun", "brigand backwood", "adventurer's archipelago", "the cult of the dragon", "the fallen city of malakir", "the scorched mountains"]
@@ -23,12 +24,20 @@ var CurLocation = 'panterville'
 var mapLocation = ""
 var pastLocation = "panterville"
 
-// New magic spells 
-// name, magnitude, effect, hitChance, manaCost, lvlReq, intReq
-var firebolt = new newMagic("firebolt", [10, 3], ["damage", "burn"], [0.8, 5], 10, 1, 1) 
+//Spells 
+// name, magnitude, effect, hitChance, manaCost, lvlReq, intReq, class
+var firebolt = new newMagic("firebolt", [10, 3], ["damage", "burn"], [0.8, 5], 10, 1, 1, "mage")
 
-//name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq
-//rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
+var allSpells = [firebolt]
+var availSpells = []
+//Skills
+// name, magnitude, effect, hitChance, coolDown, lvlReq, strReq, dexReq, class
+var bunkerDown = newSkill("bunker down", [10], ["heal"], [0.9], 1, 3, 1, "warrior")
+
+var allSkills = [bunkerDown]
+var availSkills = []
+// name, location, damage, rarity, price, weight, equippable, description, lvlreq, strreq, intreq, dexreq
+// rarity 1: common, 2: uncommon, 3: rare, 4: epic, 5:legendary
 var sword = new newitem("sword", "rehmont", 5, 1, 30, 6, true, "This is a sword what else do you want?", 1, 1, 1, 1)
 var club = new newitem("club", 0, 7, 1, 5, 10, true)
 var scimitar = new newitem("scimitar", 0, 10, 2, 50, 6, true)
@@ -339,6 +348,13 @@ document.getElementById('confirmchar').onclick = function replaceh() {
 	$('#confirmchar').fadeOut(1000)
 	$('#frm').delay(1000).fadeIn(1000)
 	$('#locationbg').delay(1000).fadeIn(1000)
+	$("#healthContainer").delay(1000).fadeIn(1000)
+	$("#manaContainer").delay(1000).fadeIn(1000)
+	$("#expContainer").delay(1000).fadeIn(1000)
+	$("#locationText").delay(1000).fadeIn(1000)
+	document.getElementById("healthContainer").innerHTML = "<div id='health' class='progressBar'></div> " + vit + "/" + vit
+	document.getElementById("manaContainer").innerHTML = "<div id='mana' class='progressBar'></div> " + maxMana + "/" + maxMana 
+	document.getElementById("expContainer").innerHTML = "<div id='exp' class='progressBar'></div> " + exp + "/" + 1000
 	health = vit
 }
 
@@ -398,12 +414,6 @@ function playGame() {
 	}
 
 
-
-
-
-
-
-
 	$(".toggle-fullscreen").on("click", function () {
 
 		var imageBlock = $(this).parent();
@@ -428,10 +438,6 @@ function playGame() {
 	});
 
 
-
-
-	//combat itself, they attack and have a chance to hit you and do damage, attacks can crit, add randomness
-	//skills, elemental damage, 
 
 	switch (action) {
 
@@ -652,104 +658,21 @@ function go() {
 		$("#en2healthContainer").fadeOut(500)
 		$("#en3healthContainer").fadeOut(500)
 
-		$("#healthContainer").fadeOut(500)
-		$("#manaContainer").fadeOut(500)
-		$("#expContainer").fadeOut(500)
-
 		combat = false
 	}
 	if (mapLocation == CurLocation) {
 		gameMessage = "You're already at your destination."
-		render()
 		ambush = false
 		return
 	}
-	switch (mapLocation) {
-		case "riverrun":
-			pastLocation = CurLocation
-			CurLocation = "riverrun"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			render()
-			break
-
-		case "panterville":
-			pastLocation = CurLocation
-			CurLocation = "panterville"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			render()
-
-			break
-
-		case "rehmont":
-			pastLocation = CurLocation
-			CurLocation = "rehmont"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			render()
-			break
-
-		case "the great expanse":
-			pastLocation = CurLocation
-			CurLocation = "the great expanse"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "ogre hills":
-			pastLocation = CurLocation
-			CurLocation = "ogre hills"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			render()
-			break
-
-		case "faerie forest":
-			pastLocation = CurLocation
-			CurLocation = "faerie forest"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			render()
-			break
-
-		case "ulidin":
-			pastLocation = CurLocation
-			CurLocation = "ulidin"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "brigand backwood":
-			pastLocation = CurLocation
-			CurLocation = "brigand backwood"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "adventurer's archipelago":
-			pastLocation = CurLocation
-			CurLocation = "adventurer's archipelago"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "the cult of the dragon":
-			pastLocation = CurLocation
-			CurLocation = "the cult of the dragon"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "the fallen city of malakir":
-			pastLocation = CurLocation
-			CurLocation = "the fallen city of malakir"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		case "the scorched mountains":
-			pastLocation = CurLocation
-			CurLocation = "the scorched mountains"
-			gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
-			break
-
-		default:
-			gameMessage = "Location is unknown."
-			ambush = false
-	}
+	
+	pastLocation = CurLocation
+	CurLocation = mapLocation
+	gameMessage = "You have travelled from " + titleCase(pastLocation) + " to " + titleCase(CurLocation) + "."
 	document.getElementById("locationbg").src = "Assets/Images/Locations/" + CurLocation + ".png"
 	document.getElementById("locationbg").alt = titleCase(CurLocation)
-
+	document.getElementById("locationText").innerHTML = titleCase(CurLocation)
+	
 	/*if (ambush == true) {
 		var possible_enemies = []
 
@@ -1098,6 +1021,22 @@ function readytolvl(xp) {
 function render() {
 	document.getElementById('health').style.width = Math.round(((health / vit) * 100)).toString() + "%"
 	document.getElementById('mana').style.width = Math.round(((mana / maxMana) * 100)).toString() + "%"
+	//update experience bar
+	//Check to see if you qualify for new skills/spells and if so adding them to your available skills and spells
+	for (var i = 0; i < allSkills.length; i++) {
+		if (lvl >= allSkills[i].lvlReq && str >= allSkills[i].strReq && dex >= allSkills[i].dexReq && klass == allSkills[i].class) {
+			availSkills.push(allSkills[i])
+		}
+	}
+	for (var i = 0; i < allSpells.length; i++) {
+		if (lvl >= allSpells[i].lvlReq && int >= allSpells[i].intReq && klass == allSpells[i].class) {
+			availSpells.push(allSpells[i])
+		}
+	}
+	
+	maxMana = 20 + (5 * int)
+	manaRecharge = 2 * int
+	
 	addMessage(gameMessage)
 	moveplayer()
 	//item = ''

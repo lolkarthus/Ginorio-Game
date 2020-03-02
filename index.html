@@ -156,6 +156,7 @@
 
 <div class="wrapper">
 	<img src="Assets/Images/Locations/panterville.png" alt="Panterville" id="locationbg">
+	<p id="locationText">Panterville</p>
 	<img src="Assets/Images/Human/Hunter_Warrior_Ginorio.png" alt="Ginorio" id="combatginorio">
 	<img src="Assets/Images/blank.png" alt= "Item" id="equippeditem">
 	
@@ -167,12 +168,15 @@
 	<img src="Assets/Images/Items/Common/club.png" alt= "Item" id="enemy3item">
 	<div class="progressBarContainer" id="healthContainer">
 		<div id="health" class="progressBar"></div>
+		<p id="healthtext">20/20</p>
 	</div>
 	<div class="progressBarContainer" id="manaContainer">
 		<div id="mana" class="progressBar"></div>
+		<p id="manatext">20/20</p>
 	</div>
 	<div class="progressBarContainer" id="expContainer">
 		<div id="exp" class="progressBar"></div>
+		<p id="exptext">0/1000</p>
 	</div>
 	
 	<div class="progressBarContainer" id="en1healthContainer">
@@ -188,9 +192,26 @@
 	<img src="Assets/Images/arrow.png" alt="Arrow" id="arrow">
 </div>
 		
+<table width="500" border="1" id="actionsMenu">
+  <tbody>
+    <tr>
+      <td>Attack</td>
+      <td>Items</td>
+      <td>Magic</td>
+    </tr>
+    <tr>
+      <td>Block</td>
+      <td>Skills</td>
+      <td>Flee</td>
+    </tr>
+  </tbody>
+</table>
+
+		
 		<footer id="footer">This game was made by the students of CDA Charter in appreciation of the great and powerful Ralph Ginorio, an inspiration for us all.</footer>
 		<script type="text/javascript" src="enemy.js"></script>
 		<script type="text/javascript" src="item.js"></script>
+		<script type="text/javascript" src="skill.js"></script>
 		<script type="text/javascript" src="magic.js"></script>
 		<script type="text/javascript" src="logic.js"></script>
 

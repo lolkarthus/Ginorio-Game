@@ -145,6 +145,7 @@ footer {
 }
 #frm {
 	display: none;
+    height: auto;
 }
 #txtArea {
 	z-index: -1;
@@ -170,7 +171,7 @@ footer {
 	border: none;
 	color: antiquewhite;
 	height: 40px;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	right: 0px;
 	margin-top: -15px;
@@ -231,6 +232,8 @@ footer {
 	width: 120px;
 	left: 50vw;
 	top: 49vh;
+
+
 	transform: rotate(-40deg);
 }
 #ogrehills {
@@ -321,6 +324,29 @@ footer {
 	display: none;
 	position: relative;
 	height: auto;
+	z-index:2;
+	max-height:37vw;
+}
+#locationText {
+	font-family: enchanted_landregular;
+	font-size: 3vw;
+	color: antiquewhite;
+	text-align: center;
+	z-index:3;
+	bottom: -6%;
+	position: absolute;
+	margin-left: 46%;
+	display: none;
+	
+}
+#actionsMenu {
+	font-family: enchanted_landregular;
+	font-size: min(5vw, 100px);
+	color: antiquewhite;
+	text-align: center;
+	margin-top: min(3vw, 40px);
+    width:100vw;
+	display: none;
 }
 #combatginorio {
 	display: none;
@@ -360,12 +386,11 @@ footer {
 }
 .progressBarContainer {
 	width: 18%;
-	top: 24%;
-	right: 66%;
 	height: 3%;
 	border: 1px white solid;
 	position: absolute;
 	display: none;
+	z-index: 3;
 }
 .progressBar {
 	width: 100%;
@@ -373,23 +398,44 @@ footer {
 	position: absolute;
 }
 #healthContainer {
-	top: 21%;
+	top: 0;
+	font-family: enchanted_landregular;
+	font-size: 1.7vw;
+	color: antiquewhite;
+	text-align: center;
+	position:fixed;
+}
+#manaContainer {
+	top: 3.1%;
+	font-family: enchanted_landregular;
+	font-size: 1.7vw;
+	color: antiquewhite;
+	text-align: center;
+    position: fixed;
 }
 #expContainer {
-	top: 27%;
+	top: 6.2%;
+	font-family: enchanted_landregular;
+	font-size: 1.7vw;
+	color: antiquewhite;
+	text-align: center;
+	position:fixed;
 }
 #health, #en1health, #en2health, #en3health {
 	background-color: red;
 	width: 100%;
+	z-index:-1;
 }
 #mana {
 	background-color: blue;
 	width: 100%;
+	z-index:-1;
 }
 #exp {
 	background-color: green;
 	width: 0%;
 }
+
 #en1healthContainer {
 	top: 32%;
 	right: 37%;
